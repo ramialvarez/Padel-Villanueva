@@ -1,0 +1,35 @@
+---
+import Navbar from "@/components/Navbar.astro";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+};
+
+const title = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Padel Villanueva</title>
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" /><!-- fallback -->
+
+    <meta name="keywords" content="padel, villanueva, torneo, ranking" />
+
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="Pagina web de la cancha de Padel del Villanueva Futbol Club, donde podrás ver el ranking de la misma, e información sobre los torneos que se llevan a cabo en la misma."
+    />
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
