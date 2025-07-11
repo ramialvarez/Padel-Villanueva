@@ -26,6 +26,6 @@ body {
   @apply bg-background-white h-full;
 }
 
-#root {
+main {
   @apply h-full;
 }
