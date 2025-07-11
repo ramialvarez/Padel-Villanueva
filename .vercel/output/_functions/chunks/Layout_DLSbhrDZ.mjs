@@ -57,7 +57,7 @@ const $$Icon = createComponent(($$result, $$props, $$slots) => {
     "stroke-width": absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
     ...rest
   })}${addAttribute(["lucide", className], "class:list")}> ${iconNode.map(([Tag, attrs]) => renderTemplate`${renderComponent($$result, "Tag", Tag, { ...attrs })}`)} ${renderSlot($$result, $$slots["default"])} </svg>`;
-}, "C:/Users/x1/Desktop/Padel Villanueva/padel-villanueva/node_modules/.pnpm/@lucide+astro@0.525.0_astro_43e4a9deb7dc3ab011634b8fcb9025df/node_modules/@lucide/astro/src/Icon.astro", void 0);
+}, "C:/Users/x1/Desktop/Padel Villanueva/padel-villanueva/node_modules/.pnpm/@lucide+astro@0.525.0_astro_a896104771d2911d1db6abf91af64d4c/node_modules/@lucide/astro/src/Icon.astro", void 0);
 
 const createLucideIcon = (iconName, iconNode) => {
   const Component = createComponent(
