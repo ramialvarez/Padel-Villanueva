@@ -1,27 +1,35 @@
 import FormField from "@/components/forms/FormField";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { supabase } from "@/lib/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { torneoSchema, type TorneoFormData } from "@/lib/schemas/torneoSchema";
-import { generoOptions, categoriaOptions } from "@/constants/torneo";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/Button.tsx";
 import LabelForm from "../forms/LabelForm";
+import { loginSchema, type LoginFormData } from "@/lib/schemas/login";
 
-export default function CrearTorneoForm() {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TorneoFormData>({
-    resolver: zodResolver(torneoSchema),
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<TorneoFormData> = async (formData) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (
+    data: LoginFormData
+  ) => {
     try {
-    } catch (e) {
-      alert(`Ocurrio un error ${e}`);
-      return;
-    }
+      const formData = new FormData();
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+      }
+    } catch (e) {}
   };
 
   return (
@@ -30,66 +38,32 @@ export default function CrearTorneoForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center justify-center border-2 border-gray-line  m-6 w-xl  bg-white backdrop-blur-md shadow-xl rounded-lg p-10"
       >
-        <h2 className="text-3xl text-title-black font-bold">Crear Torneo</h2>
+        <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
         <div className="px-4 py-3 w-lg">
           <LabelForm text="Titulo" />
-          <FormField<TorneoFormData>
+          <FormField<LoginFormData>
             type="text"
-            placeholder="Ingrese el titulo"
-            name="titulo"
+            placeholder="Ingrese el email"
+            name="email"
             register={register}
-            error={errors.titulo}
+            autocomplete="username"
+            error={errors.email}
           />
         </div>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Imagen" />
-          <FormField<TorneoFormData>
-            type="file"
-            name="imagen"
+          <LabelForm text="Contraseña" />
+          <FormField<LoginFormData>
+            type="password"
+            placeholder="Ingrese su contraseña"
+            name="password"
             register={register}
-            error={errors.imagen}
+            autocomplete="current-password"
+            error={errors.password}
           />
         </div>
-        <div className="px-4 py-3 w-lg">
-          <LabelForm text="Fecha de inicio" />
-          <FormField<TorneoFormData>
-            type="date"
-            name="fecha_inicio"
-            register={register}
-            error={errors.fecha_inicio}
-          />
-        </div>
-        <div className="px-4 py-3 w-lg">
-          <LabelForm text="Fecha de fin" />
-          <FormField<TorneoFormData>
-            type="date"
-            name="fecha_fin"
-            register={register}
-            error={errors.fecha_fin}
-          />
-        </div>
-        <div className="px-4 py-3 w-lg">
-          <LabelForm text="Genero" />
-          <FormField<TorneoFormData>
-            type="select"
-            name="genero"
-            register={register}
-            error={errors.genero}
-            options={generoOptions}
-          />
-        </div>
-        <div className="px-4 py-3 w-lg">
-          <LabelForm text="Categoria" />
-          <FormField<TorneoFormData>
-            type="select"
-            name="categoria"
-            register={register}
-            error={errors.categoria}
-            options={categoriaOptions}
-          />
-        </div>
+
         <div className="mt-4">
-          <Button text="Crear Torneo" type="submit" />
+          <Button text="Iniciar sesión" type="submit" />
         </div>
       </form>
     </div>

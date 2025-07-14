@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { torneoSchema, type TorneoFormData } from "@/lib/schemas/torneoSchema";
 import { generoOptions, categoriaOptions } from "@/constants/torneo";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/Button.tsx";
 import LabelForm from "../forms/LabelForm";
 
 export default function CrearTorneoForm() {

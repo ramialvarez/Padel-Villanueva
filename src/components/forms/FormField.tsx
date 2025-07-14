@@ -7,6 +7,7 @@ export default function FormField<TFormData extends FieldValues>({
   name,
   register,
   error,
+  autocomplete,
   options,
   valueAsNumber,
 }: FormFieldProps<TFormData>) {
@@ -35,6 +36,7 @@ export default function FormField<TFormData extends FieldValues>({
       <input
         className="bg-gray-input text-gray-text px-4 py-3 w-full rounded-xl focus:outline-gray-line"
         type={type}
+        autoComplete={autocomplete}
         placeholder={placeholder}
         {...register(name, valueAsNumber ? { valueAsNumber: true } : {})}
       />

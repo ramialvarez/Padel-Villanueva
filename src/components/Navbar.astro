@@ -1,9 +1,11 @@
 ---
 import { Menu, X } from "@lucide/astro";
 
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/Button.astro";
+
 import NavLink from "@/components/ui/NavLink.astro";
-const session = "";
+import { getSessionFromCookies } from "@/lib/getSession";
+const session = await getSessionFromCookies(Astro);
 ---
 
 <nav class="shadow-md border-b-0 text-gray-700 font-medium">
@@ -23,7 +25,7 @@ const session = "";
 
         {
           Boolean(session) && (
-            <NavLink url="/admin/panel" text="Panel de Administración" />
+            <NavLink url="/admin/jugadores/listado" text="Panel de Administración" />
           )
         }
       </ul>
@@ -107,12 +109,6 @@ const session = "";
   const menuClosedIcon = document.getElementById("menu-closed-icon");
   const menuOpenIcon = document.getElementById("menu-open-icon");
 
-  console.log(
-    "BOTON" + mobileMenuButton,
-    "MENU" + mobileMenu,
-    "ICON CLOSED" + menuClosedIcon,
-    "ICON OPEN" + menuOpenIcon
-  );
   if (mobileMenuButton && mobileMenu && menuClosedIcon && menuOpenIcon) {
     mobileMenuButton.addEventListener("click", () => {
       mobileMenu.classList.toggle("hidden");

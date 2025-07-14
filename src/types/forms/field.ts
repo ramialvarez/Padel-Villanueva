@@ -13,6 +13,7 @@ export type FormFieldProps<TFormData extends FieldValues> = {
   name: Path<TFormData>;
   register: UseFormRegister<TFormData>;
   error?: FieldError;
+  autocomplete?: string;
   options?: Option[]; // Para select
   valueAsNumber?: boolean;
 };
