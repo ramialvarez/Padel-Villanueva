@@ -1,11 +1,38 @@
-<aside class="h-full bg-gray-input border-r-2 b-gray-line">
-  <div>
-    <img src="/logo_navbar.webp" />
-    <h2>Padel Villanueva</h2>
+---
+import { Trophy, PersonStanding } from "@lucide/astro";
+
+import { Image } from "astro:assets";
+import logoNavbar from "@/assets/logo_navbar.webp";
+---
+
+<aside
+  class="h-full w-[15%] bg-gray-input border-r-2 border-gray-line flex flex-col items-center p-6"
+>
+  <div class="flex flex-col justify-center items-center">
+    <Image src={logoNavbar} alt="Logo padel villanueva" />
+    <h2
+      class="text-xl p-2 font-semibold text-transparent bg-gradient-to-r from-rojo-oscuro to-bordo/80 bg-clip-text text-center text-balance"
+    >
+      Panel de administración
+    </h2>
   </div>
-  <ul>
-    <li>Jugadores</li>
-    <li>Torneos</li>
+  <ul
+    class="flex flex-col items-start justify-center gap-6 relative top-20 w-full"
+  >
+    <a
+      href="/admin/jugadores/listado"
+      class="flex items-center gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-2"
+    >
+      <PersonStanding class="size-7" />
+      <li>Jugadores</li>
+    </a>
+    <a
+      href="/admin/torneos/listado"
+      class="flex items-center gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-2"
+    >
+      <Trophy class="size-6 ml-1" />
+      <li>Torneos</li>
+    </a>
   </ul>
   <a></a>
 </aside>

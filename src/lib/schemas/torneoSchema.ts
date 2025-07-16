@@ -1,4 +1,4 @@
-import { Genero, Categoria } from "@/constants/torneo";
+import { Genero, CategoriaTorneo } from "@/constants/torneo";
 import { z } from "zod";
 
 export const torneoSchema = z.object({
@@ -7,7 +7,7 @@ export const torneoSchema = z.object({
   fecha_inicio: z.coerce.date(),
   fecha_fin: z.coerce.date(),
   genero: z.nativeEnum(Genero),
-  categoria: z.nativeEnum(Categoria),
+  categoria: z.nativeEnum(CategoriaTorneo),
 });
 
 export type TorneoFormData = z.infer<typeof torneoSchema>;

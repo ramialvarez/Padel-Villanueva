@@ -1,0 +1,42 @@
+---
+import SearchFilter from "@/components/ui/SearchFilter";
+import SelectFilter from "@/components/ui/SelectFilter";
+import Table from "@/components/ui/Table.astro";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { generoOptions, categoriaJugadorOptions } from "@/constants/torneo";
+import { Button } from "@heroui/button";
+import { Plus } from "@lucide/astro";
+---
+
+<AdminLayout>
+  <h1 class="text-title-black text-3xl font-semibold py-12">
+    Listado de jugadores
+  </h1>
+  <section class="flex items-center gap-6">
+    <SearchFilter placeholder="Ingrese el nombre o apellido" client:load />
+    <SelectFilter
+      options={generoOptions}
+      labelText="Genero"
+      primeraOpcion="Todos los generos"
+      id="selectGenero"
+      iconName="user"
+      client:load
+    />
+    <SelectFilter
+      options={categoriaJugadorOptions}
+      labelText="Categoria"
+      primeraOpcion="Todas las categorias"
+      id="selectCategoria"
+      iconName="star"
+      client:load
+    />
+  </section>
+  <Button
+    className="bg-rojo-oscuro/90 hover:bg-rojo-medium text-white"
+    endContent={(<Plus />)}
+    client:visible>Agregar jugador</Button
+  >
+  <section>
+    <Table />
+  </section>
+</AdminLayout>

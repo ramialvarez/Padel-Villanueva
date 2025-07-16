@@ -1,12 +1,14 @@
 <div
-  class="bg-cover h-screen border-none flex text-center bg-gradient-to-br from-gray-900 to-gray-800 bg-[url(/home.svg)]"
+  class="bg-cover h-screen border-none flex text-center bg-gradient-to-br from-gray-900 to-gray-800 bg-[url(src/assets/home.svg)]"
 >
-  <div class="relative w-full h-screen overflow-hidden">
+  <div class="relative w-full overflow-hidden">
     <div class="absolute inset-0 flex items-center justify-center">
       <img
-        src="logos.svg"
+        src="src/assets/logos.svg"
         alt="Fondo del club"
-        class="absolute w-full h-full md:object-cover object-contain max-w-none sm:min-w-[800px] min-w-[600px]"
+        class="w-full h-full md:object-cover object-contain max-w-none sm:min-w-[800px] min-w-[600px]"
+        loading="lazy"
+        decoding="async"
       />
     </div>
     <div
@@ -15,7 +17,7 @@
     </div>
 
     <div
-      class="relative z-10 flex flex-col items-center justify-between h-full text-white px-6 md:px-12 py-8 2xl:mt-[2rem] xl:mt-[3rem] lg:mt-[2rem] md:mt-[2rem] mt-[8rem]"
+      class="relative z-10 flex flex-col items-center justify-between h-full text-white px-6 md:px-12 py-8 mt-[8rem] md:mt-[2rem] lg:mt-[2rem] xl:mt-[3rem] 2xl:mt-[2rem]"
     >
       <div class="flex flex-col justify-between h-full w-full max-w-6xl">
         <div
@@ -38,7 +40,7 @@
         </div>
 
         <div
-          class="flex flex-col items-center flex-grow flex-shrink-0 justify-end py-8 sm:py-12 md:py-16 2xl:mb-[8rem] xl:mb-[9rem] lg:mb-[8rem] md:mb-[7rem] mb-[18rem]"
+          class="flex flex-col items-center flex-grow flex-shrink-0 justify-end py-8 sm:py-12 md:py-16 mb-[18rem] md:mb-[7rem] lg:mb-[8rem] xl:mb-[9rem] 2xl:mb-[8rem]"
         >
           <div
             class="flex items-center justify-center space-x-2 md:space-x-10 mb-6"
@@ -67,7 +69,6 @@
               <span class="font-semibold text-lg md:text-xl">Instagram</span>
             </a>
 
-            {/* Enlace a Facebook */}
             <a
               href="https://www.facebook.com/padel.vfc/?app=fbl"
               rel="noopener noreferrer"
@@ -92,7 +93,6 @@
               <span class="font-semibold text-lg md:text-xl">Facebook</span>
             </a>
 
-            {/* Enlace a Ubicación con animación de ping */}
             <a
               href="https://www.google.com/maps/place/Cancha+de+Padel+V.F.C/@-35.6763627,-58.4353891,20z/data=!4m6!3m5!1s0x9597f91cadee19e7:0xc0134154032e17ba!8m2!3d-35.676364!4d-58.4354468!16s%2Fg%2F11l35p0qb1?entry=ttu&g_ep=EgoyMDI1MDEyMi4wIKXMDSoASAFQAw%3D%3D"
               aria-label="Ubicación en Google Maps Padel V.F.C."
@@ -114,7 +114,6 @@
                     d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z"
                     clip-rule="evenodd"></path>
                 </svg>
-                {/* Efecto de ping para el botón de ubicación */}
                 <span
                   class="absolute -inset-0.5 bg-red-400 opacity-0 rounded-full group-hover:animate-ping group-hover:opacity-25"
                 ></span>
@@ -123,12 +122,13 @@
             </a>
           </div>
 
-          {/* Ubicación como texto destacado con animación */}
           <p
             class="font-semibold text-lg md:text-xl text-gray-300 drop-shadow-md animate-locationFadeIn flex items-center"
           >
-            <span class="inline-block animate-bounce mr-2">📍</span> Villanueva,
-            Buenos Aires, Argentina
+            <span class="inline-block animate-bounce mr-2" aria-hidden="true"
+              >📍</span
+            >
+            Villanueva, Buenos Aires, Argentina
           </p>
         </div>
       </div>
@@ -168,11 +168,6 @@
     }
   }
 
-  .animate-fadeIn {
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-  }
-
   .animate-titleSlideDown {
     opacity: 0;
     animation: titleSlideDown 1.2s forwards 0.3s;
@@ -188,7 +183,6 @@
     animation: locationFadeIn 1.2s forwards 0.9s;
   }
 
-  /* Nuevas animaciones para VFC */
   .vfc-animation {
     position: relative;
     font-weight: 900;
@@ -253,7 +247,6 @@
   @keyframes vfcHighlightAnimation {
     0% {
       opacity: 0;
-
       transform: translateX(-100%);
     }
     35% {

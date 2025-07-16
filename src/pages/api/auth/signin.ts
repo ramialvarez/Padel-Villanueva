@@ -25,5 +25,5 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   cookies.set("sb-access-token", data.session.access_token, { path: "/" });
   cookies.set("sb-refresh-token", data.session.refresh_token, { path: "/" });
 
-  return redirect("/admin");
+  return redirect("/admin/torneos/listado");
 };

@@ -27,7 +27,8 @@ export default function LoginForm() {
         body: formData,
       });
 
-      if (!res.ok) {
+      if (res.ok) {
+        window.location.href = "/admin/torneos/listado";
       }
     } catch (e) {}
   };
@@ -40,7 +41,7 @@ export default function LoginForm() {
       >
         <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Titulo" />
+          <LabelForm text="Email" />
           <FormField<LoginFormData>
             type="text"
             placeholder="Ingrese el email"
