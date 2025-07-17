@@ -24,7 +24,6 @@ export enum CategoriaTorneo {
   Suma7 = "Suma 7",
 }
 
-
 export enum CategoriaJugador {
   Primera = "Primera",
   Segunda = "Segunda",

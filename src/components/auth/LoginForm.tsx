@@ -1,8 +1,8 @@
 import FormField from "@/components/forms/FormField";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@/components/ui/Button.tsx";
-import LabelForm from "../forms/LabelForm";
+import { Button } from "@heroui/button";
+import LabelForm from "@/components/forms/LabelForm";
 import { loginSchema, type LoginFormData } from "@/lib/schemas/login";
 
 export default function LoginForm() {
@@ -64,7 +64,7 @@ export default function LoginForm() {
         </div>
 
         <div className="mt-4">
-          <Button text="Iniciar sesión" type="submit" />
+          <Button type="submit">Iniciar Sesión</Button>
         </div>
       </form>
     </div>

@@ -1,65 +1,45 @@
-import { UserRound, Star } from "lucide-react";
+import { Select, SelectItem } from "@heroui/react";
+import { Mars, UserRound } from "lucide-react";
 
 const iconMap = {
-  user: UserRound,
-  star: Star,
+  genero: Mars,
+  categoria: UserRound,
 };
-
-type Option = {
+export interface Option {
   value: string;
   label: string;
-};
+}
 
-type Props = {
-  options: Option[];
-  labelText: string;
-  primeraOpcion: string;
-  id: string;
+interface SelectFilterProps {
+  items: Option[];
+  label: string;
   iconName: keyof typeof iconMap;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  disabled?: boolean;
-};
+  placeholder?: string;
+}
 
 export default function SelectFilter({
-  options,
-  labelText,
-  primeraOpcion,
-  id,
+  items,
+  label,
   iconName,
-  value,
-  onChange,
-  disabled,
-}: Props) {
+  placeholder = "Seleccioná una opción",
+}: SelectFilterProps) {
   const Icon = iconMap[iconName];
   return (
-    <div className="flex flex-col">
-      <label htmlFor={id} className="font-medium mb-2 block">
-        {labelText}
-      </label>
-      <div className="flex items-center gap-2 w-sm bg-gray-input border-2 border-gray-line rounded-lg p-2">
-        <Icon color="#61758a" />
-        <select
-          id={id}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          className="w-full focus:outline-none bg-gray-input text-title-black font-medium"
-        >
-          <option value="" className="font-medium">
-            {primeraOpcion}
-          </option>
-          {options.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              className="font-medium"
-            >
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+    <Select
+      className="max-w-xs"
+      variant="bordered"
+      labelPlacement="outside"
+      items={items}
+      label={label}
+      startContent={<Icon />}
+      placeholder={placeholder}
+      isClearable={true}
+      classNames={{
+        value: "text-black", // Forza el color del placeholder y del valor seleccionado
+        trigger: "focus:outline-none focus:ring-0 focus:ring-transparent",
+      }}
+    >
+      {(item) => <SelectItem key={item.value}>{item.label}</SelectItem>}
+    </Select>
   );
 }

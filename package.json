@@ -13,6 +13,8 @@
     "@astrojs/vercel": "^8.2.1",
     "@heroui/button": "^2.2.23",
     "@heroui/react": "^2.8.1",
+    "@heroui/select": "^2.4.24",
+    "@heroui/table": "^2.2.23",
     "@hookform/resolvers": "^5.1.1",
     "@lucide/astro": "^0.525.0",
     "@supabase/supabase-js": "^2.50.3",

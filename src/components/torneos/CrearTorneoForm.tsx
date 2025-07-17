@@ -4,8 +4,8 @@ import { supabase } from "@/lib/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { torneoSchema, type TorneoFormData } from "@/lib/schemas/torneoSchema";
 import { generoOptions, categoriaTorneoOptions } from "@/constants/torneo";
-import Button from "@/components/ui/Button.tsx";
-import LabelForm from "../forms/LabelForm";
+import { Button } from "@heroui/button";
+import LabelForm from "@/components/forms/LabelForm";
 
 export default function CrearTorneoForm() {
   const {
@@ -89,7 +89,7 @@ export default function CrearTorneoForm() {
           />
         </div>
         <div className="mt-4">
-          <Button text="Crear Torneo" type="submit" />
+          <Button type="submit">Crear Torneo</Button>
         </div>
       </form>
     </div>

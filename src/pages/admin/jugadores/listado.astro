@@ -1,11 +1,9 @@
 ---
 import SearchFilter from "@/components/ui/SearchFilter";
 import SelectFilter from "@/components/ui/SelectFilter";
-import Table from "@/components/ui/Table.astro";
+import TablaJugadores from "@/components/ui/TablaJugadores";
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import { generoOptions, categoriaJugadorOptions } from "@/constants/torneo";
-import { Button } from "@heroui/button";
-import { Plus } from "@lucide/astro";
 ---
 
 <AdminLayout>
@@ -13,26 +11,24 @@ import { Plus } from "@lucide/astro";
     Listado de jugadores
   </h1>
   <section class="flex items-center gap-6">
-    <SearchFilter placeholder="Ingrese el nombre o apellido" client:load />
+    <SearchFilter placeholder="Ingresa el nombre o apellido del jugador" />
     <SelectFilter
-      options={generoOptions}
-      labelText="Genero"
-      primeraOpcion="Todos los generos"
-      id="selectGenero"
-      iconName="user"
-      client:load
+      items={generoOptions}
+      label="Genero"
+      iconName="genero"
+      placeholder="Selecciona un genero"
+      client:only="react"
     />
     <SelectFilter
-      options={categoriaJugadorOptions}
-      labelText="Categoria"
-      primeraOpcion="Todas las categorias"
-      id="selectCategoria"
-      iconName="star"
-      client:load
+      items={categoriaJugadorOptions}
+      label="Categoria"
+      iconName="categoria"
+      placeholder="Selecciona una categoria"
+      client:only="react"
     />
   </section>
 
-  <section>
-    <Table />
+  <section class="py-6">
+    <TablaJugadores client:only="react" />
   </section>
 </AdminLayout>

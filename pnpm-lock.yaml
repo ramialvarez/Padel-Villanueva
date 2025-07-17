@@ -20,6 +20,12 @@ importers:
       '@heroui/react':
         specifier: ^2.8.1
         version: 2.8.1(@types/react@19.1.8)(framer-motion@12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tailwindcss@4.1.11)
+      '@heroui/select':
+        specifier: ^2.4.24
+        version: 2.4.24(@heroui/system@2.4.19(@heroui/theme@2.4.19(tailwindcss@4.1.11))(framer-motion@12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@heroui/theme@2.4.19(tailwindcss@4.1.11))(framer-motion@12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@heroui/table':
+        specifier: ^2.2.23
+        version: 2.2.23(@heroui/system@2.4.19(@heroui/theme@2.4.19(tailwindcss@4.1.11))(framer-motion@12.23.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@heroui/theme@2.4.19(tailwindcss@4.1.11))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers':
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
