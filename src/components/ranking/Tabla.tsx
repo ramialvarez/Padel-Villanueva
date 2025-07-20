@@ -10,7 +10,7 @@ import {
   Tooltip,
   Skeleton,
 } from "@heroui/react";
-import { Pencil, Trash2 } from "lucide-react";
+
 import type { Database } from "@/types/supabase";
 
 type Player = Database["public"]["Tables"]["jugadores"]["Row"];
@@ -24,7 +24,6 @@ const columns = [
   { name: "JUGADOR", uid: "jugador" },
   { name: "GÉNERO", uid: "genero" },
   { name: "CATEGORIA", uid: "categoria" },
-  { name: "ACCIONES", uid: "acciones" },
 ];
 
 export default function TablaJugadores({ players, isLoading }: Props) {
@@ -32,31 +31,15 @@ export default function TablaJugadores({ players, isLoading }: Props) {
     switch (columnKey) {
       case "jugador":
         return (
-          <User
-            avatarProps={{ radius: "lg", src: player.imagen ?? undefined }}
-            name={player.nombre}
-          />
+          <div className="flex flex-col">
+            <p className="text-bold text-sm capitalize">{player.nombre}</p>
+          </div>
         );
       case "genero":
       case "categoria":
         return (
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize">{player[columnKey]}</p>
-          </div>
-        );
-      case "acciones":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Editar usuario">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <Pencil />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Eliminar usuario">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <Trash2 />
-              </span>
-            </Tooltip>
           </div>
         );
       default:
@@ -66,12 +49,9 @@ export default function TablaJugadores({ players, isLoading }: Props) {
 
   return (
     <Table aria-label="Tabla de jugadores con precarga">
-      <TableHeader columns={columns}>
+      <TableHeader columns={columns} className="bg-gray-text">
         {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "acciones" ? "center" : "start"}
-          >
+          <TableColumn key={column.uid} align={"center"}>
             {column.name}
           </TableColumn>
         )}
@@ -81,7 +61,6 @@ export default function TablaJugadores({ players, isLoading }: Props) {
         <TableBody>
           {Array.from({ length: 5 }).map((_, i) => (
             <TableRow key={`skeleton-${i}`}>
-              {/* JUGADOR */}
               <TableCell>
                 <div className="flex items-center gap-3">
                   <Skeleton className="h-10 w-10 rounded-full" />
@@ -99,13 +78,6 @@ export default function TablaJugadores({ players, isLoading }: Props) {
               <TableCell>
                 <Skeleton className="h-4 w-24 rounded-lg" />
               </TableCell>
-
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-6 w-6 rounded-md" />
-                  <Skeleton className="h-6 w-6 rounded-md" />
-                </div>
-              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -117,7 +89,9 @@ export default function TablaJugadores({ players, isLoading }: Props) {
           {(item) => (
             <TableRow
               key={item.id}
-              className={item.observado ? "bg-gray-input" : "bg-white"}
+              className={`h-12 ${
+                item.observado ? "bg-gray-input" : "bg-white"
+              }`}
             >
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey as string)}</TableCell>

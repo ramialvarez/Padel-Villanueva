@@ -45,7 +45,7 @@ html {
 }
 
 body {
-  @apply bg-background-white h-full;
+  @apply bg-gray-input h-full;
 }
 
 main {

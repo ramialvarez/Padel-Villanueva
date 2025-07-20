@@ -1,34 +1,12 @@
 ---
-import SearchFilter from "@/components/ui/SearchFilter";
-import SelectFilter from "@/components/ui/SelectFilter";
-import TablaJugadores from "@/components/ui/TablaJugadores";
+import ListadoJugadores from "@/components/admin/ListadoJugadores";
 import AdminLayout from "@/layouts/AdminLayout.astro";
-import { generoOptions, categoriaJugadorOptions } from "@/constants/torneo";
 ---
 
 <AdminLayout>
   <h1 class="text-title-black text-3xl font-semibold py-12">
     Listado de jugadores
   </h1>
-  <section class="flex items-center gap-6">
-    <SearchFilter placeholder="Ingresa el nombre o apellido del jugador" />
-    <SelectFilter
-      items={generoOptions}
-      label="Genero"
-      iconName="genero"
-      placeholder="Selecciona un genero"
-      client:only="react"
-    />
-    <SelectFilter
-      items={categoriaJugadorOptions}
-      label="Categoria"
-      iconName="categoria"
-      placeholder="Selecciona una categoria"
-      client:only="react"
-    />
-  </section>
 
-  <section class="py-6">
-    <TablaJugadores client:only="react" />
-  </section>
+  <ListadoJugadores client:load />
 </AdminLayout>

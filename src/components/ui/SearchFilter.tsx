@@ -2,11 +2,12 @@ import { Search } from "lucide-react";
 
 type Props = {
   placeholder?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function SearchFilter({ placeholder }: Props) {
+export default function SearchFilter({ placeholder, onChange }: Props) {
   return (
-    <div className="flex flex-col gap-1 w-sm max-w-sm">
+    <div className="flex flex-col gap-1 w-xs">
       <label htmlFor="search" className="text-sm font-medium text-foreground">
         Nombre o apellido del jugador
       </label>
@@ -17,6 +18,7 @@ export default function SearchFilter({ placeholder }: Props) {
           id="search"
           placeholder={placeholder}
           className="w-full text-sm text-black placeholder:text-black bg-transparent focus:outline-none"
+          onChange={onChange}
         />
       </button>
     </div>

@@ -15,6 +15,7 @@ interface SelectFilterProps {
   label: string;
   iconName: keyof typeof iconMap;
   placeholder?: string;
+  onChange: (value: string) => void;
 }
 
 export default function SelectFilter({
@@ -22,11 +23,12 @@ export default function SelectFilter({
   label,
   iconName,
   placeholder = "Seleccioná una opción",
+  onChange,
 }: SelectFilterProps) {
   const Icon = iconMap[iconName];
   return (
     <Select
-      className="max-w-xs"
+      className="max-w-xs w-xs"
       variant="bordered"
       labelPlacement="outside"
       items={items}
@@ -34,6 +36,9 @@ export default function SelectFilter({
       startContent={<Icon />}
       placeholder={placeholder}
       isClearable={true}
+      onChange={(e) => {
+        onChange(e.target.value); // Extrae el string
+      }}
       classNames={{
         value: "text-black", // Forza el color del placeholder y del valor seleccionado
         trigger: "focus:outline-none focus:ring-0 focus:ring-transparent",

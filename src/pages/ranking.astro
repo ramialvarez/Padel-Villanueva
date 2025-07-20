@@ -1,0 +1,13 @@
+---
+import RankingComponente from "@/components/ranking/Ranking.tsx"
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Ranking">
+  <section
+    class="flex flex-col items-center justify-center max-w-5xl w-full m-auto"
+  >
+    <h1 class="text-title-black text-3xl font-semibold pt-6 pb-2">Ranking</h1>
+    <RankingComponente client:only />
+  </section>
+</Layout>
