@@ -39,7 +39,7 @@ export default function Ranking() {
   const totalPages = Math.ceil((totalCount ?? 0) / PAGE_SIZE);
 
   return (
-    <div className="w-full p-6 flex flex-col gap-4 bg-gradient-to-br from-rojo-medium/30 bg-rojo-oscuro/30 to-bordo/30">
+    <div className="w-full p-6 flex flex-col gap-4">
       <Filtros handleFilterChange={handleFilterChange} />
       <Alert variant="bordered" className="bg-rojo-medium/75">
         <span className="text-small w-full font-medium block text-inherit leading-5">
