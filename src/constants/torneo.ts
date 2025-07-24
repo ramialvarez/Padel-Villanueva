@@ -1,7 +1,12 @@
-export enum Genero {
+export enum GeneroTorneo {
   Masculino = "Masculino",
   Femenino = "Femenino",
   Mixto = "Mixto",
+}
+
+export enum GeneroJugador {
+  Masculino = "Masculino",
+  Femenino = "Femenino",
 }
 
 export enum CategoriaTorneo {
@@ -42,6 +47,7 @@ export function enumToOptions<T extends Record<string, string>>(enumObj: T) {
   }));
 }
 
-export const generoOptions = enumToOptions(Genero);
+export const generoTorneoOptions = enumToOptions(GeneroTorneo);
+export const generoJugadorOptions = enumToOptions(GeneroJugador);
 export const categoriaTorneoOptions = enumToOptions(CategoriaTorneo);
 export const categoriaJugadorOptions = enumToOptions(CategoriaJugador);

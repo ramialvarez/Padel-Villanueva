@@ -1,19 +1,22 @@
-import { categoriaJugadorOptions, generoOptions } from "@/constants/torneo";
-import SearchFilter from "../ui/SearchFilter";
-import SelectFilter from "../ui/SelectFilter";
+import {
+  categoriaJugadorOptions,
+  generoJugadorOptions,
+} from "@/constants/torneo";
+import SearchFilter from "@/components/ui/SearchFilter";
+import SelectFilter from "@/components/ui/SelectFilter";
 
 type Props = {
   handleFilterChange: (key: string, value: string) => void;
 };
 export default function Filtros({ handleFilterChange }: Props) {
   return (
-    <section className="flex sm:flex-row flex-col items-center justify-center gap-6">
+    <>
       <SearchFilter
-        placeholder="Ingresa el nombre o apellido del jugador"
+        placeholder="Ingresa el nombre o apellido"
         onChange={(e) => handleFilterChange("search", e.target.value)}
       />
       <SelectFilter
-        items={generoOptions}
+        items={generoJugadorOptions}
         label="Genero"
         iconName="genero"
         placeholder="Selecciona un genero"
@@ -26,6 +29,6 @@ export default function Filtros({ handleFilterChange }: Props) {
         placeholder="Selecciona una categoria"
         onChange={(value) => handleFilterChange("categoria", value)}
       />
-    </section>
+    </>
   );
 }

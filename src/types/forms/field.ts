@@ -8,7 +8,15 @@ import type {
 export type Option = { value: string; label: string };
 
 export type FormFieldProps<TFormData extends FieldValues> = {
-  type: "text" | "number" | "select" | "email" | "file" | "date" | "password";
+  type:
+    | "text"
+    | "number"
+    | "select"
+    | "email"
+    | "file"
+    | "date"
+    | "password"
+    | "checkbox";
   placeholder?: string;
   name: Path<TFormData>;
   register: UseFormRegister<TFormData>;

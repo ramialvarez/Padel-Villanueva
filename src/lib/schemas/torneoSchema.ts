@@ -1,4 +1,4 @@
-import { Genero, CategoriaTorneo } from "@/constants/torneo";
+import { GeneroTorneo, CategoriaTorneo } from "@/constants/torneo";
 import { z } from "zod";
 
 export const torneoSchema = z.object({
@@ -6,7 +6,7 @@ export const torneoSchema = z.object({
   imagen: z.string().url().optional(),
   fecha_inicio: z.coerce.date(),
   fecha_fin: z.coerce.date(),
-  genero: z.nativeEnum(Genero),
+  genero: z.nativeEnum(GeneroTorneo),
   categoria: z.nativeEnum(CategoriaTorneo),
 });
 

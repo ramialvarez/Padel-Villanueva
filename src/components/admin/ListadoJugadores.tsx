@@ -1,12 +1,10 @@
 import { useState } from "react";
-import type { Database } from "@/types/supabase";
-import { categoriaJugadorOptions, generoOptions } from "@/constants/torneo";
-import SearchFilter from "../ui/SearchFilter";
-import SelectFilter from "../ui/SelectFilter";
-import TablaJugadores from "../ui/TablaJugadores";
+import { Button, Pagination } from "@heroui/react";
+import TablaJugadores from "@/components/admin/TablaJugadores";
 import { usePlayers } from "@/hooks/usePlayers";
+import Filtros from "@/components/common/Filtros";
+import { Plus } from "lucide-react";
 
-type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 const PAGE_SIZE = 10;
 
 export default function ListadoJugadores() {
@@ -15,9 +13,14 @@ export default function ListadoJugadores() {
     genero: "",
     categoria: "",
   });
+
   const [page, setPage] = useState(1);
 
-  const { players, isLoading } = usePlayers();
+  const { players, isLoading, totalCount } = usePlayers(
+    page,
+    PAGE_SIZE,
+    filters
+  );
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({
@@ -27,50 +30,43 @@ export default function ListadoJugadores() {
     setPage(1);
   };
 
-  const filteredPlayers = players?.filter((player) => {
-    const fullName = `${player.nombre}`.toLowerCase();
-    const matchSearch = fullName.includes(filters.search.toLowerCase());
-    const matchGenero = filters.genero
-      ? player.genero === filters.genero
-      : true;
-    const matchCategoria = filters.categoria
-      ? player.categoria === filters.categoria
-      : true;
-    return matchSearch && matchGenero && matchCategoria;
-  });
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
-  const totalPages = Math.ceil((filteredPlayers?.length ?? 0) / PAGE_SIZE);
-
-  const playersToShow = filteredPlayers?.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
+  const totalPages = Math.ceil((totalCount ?? 0) / PAGE_SIZE);
 
   return (
-    <div className="w-full">
-      <section className="flex items-center gap-6">
-        <SearchFilter
-          placeholder="Ingresa el nombre o apellido del jugador"
-          onChange={(e) => handleFilterChange("search", e.target.value)}
-        />
-        <SelectFilter
-          items={generoOptions}
-          label="Genero"
-          iconName="genero"
-          placeholder="Selecciona un genero"
-          onChange={(value) => handleFilterChange("genero", value)}
-        />
-        <SelectFilter
-          items={categoriaJugadorOptions}
-          label="Categoria"
-          iconName="categoria"
-          placeholder="Selecciona una categoria"
-          onChange={(value) => handleFilterChange("categoria", value)}
-        />
+    <div className="w-full h-auto overflow-hidden">
+      <section className="flex items-center gap-6 mb-6">
+        <section className="flex lg:flex-row flex-col items-center justify-center lg:flex-wrap gap-6 lg:m-0 m-auto">
+          <Filtros handleFilterChange={handleFilterChange} />
+          <a href="/admin/jugadores/agregarJugador">
+            <Button
+              className="bg-bordo hover:bg-rojo-oscuro text-white lg:mt-[22px] mt-0"
+              endContent={<Plus />}
+            >
+              Agregar Jugador
+            </Button>
+          </a>
+        </section>
       </section>
+      <section className="flex flex-col items-center justify-center gap-4">
+        <TablaJugadores players={players ?? []} isLoading={isLoading} />
 
-      <section className="py-6">
-        <TablaJugadores players={playersToShow ?? []} isLoading={isLoading} />
+        {totalPages > 1 && (
+          <Pagination
+            classNames={{
+              cursor: "bg-title-black text-white",
+            }}
+            total={totalPages}
+            page={page}
+            onChange={handlePageChange}
+            showControls
+            loop={false}
+            isCompact={true}
+          />
+        )}
       </section>
     </div>
   );

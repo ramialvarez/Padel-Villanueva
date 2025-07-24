@@ -37,10 +37,10 @@ export default function SelectFilter({
       placeholder={placeholder}
       isClearable={true}
       onChange={(e) => {
-        onChange(e.target.value); // Extrae el string
+        onChange(e.target.value); 
       }}
       classNames={{
-        value: "text-black", // Forza el color del placeholder y del valor seleccionado
+        value: "text-black", 
         trigger: "focus:outline-none focus:ring-0 focus:ring-transparent",
       }}
     >

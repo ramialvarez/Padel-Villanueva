@@ -51,3 +51,10 @@ body {
 main {
   @apply h-full;
 }
+
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+

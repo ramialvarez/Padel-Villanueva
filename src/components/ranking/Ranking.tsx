@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Tabla from "@/components/ranking/Tabla";
 import { usePlayers } from "@/hooks/usePlayers";
-import Filtros from "@/components/ranking/Filtros";
+import Filtros from "@/components/common/Filtros";
 import { Pagination, Alert } from "@heroui/react";
 
 const PAGE_SIZE = 10;
@@ -15,7 +15,6 @@ export default function Ranking() {
 
   const [page, setPage] = useState(1);
 
-  // Hook actualizado: pasa filtros
   const { players, isLoading, totalCount } = usePlayers(
     page,
     PAGE_SIZE,
@@ -27,12 +26,10 @@ export default function Ranking() {
       ...prev,
       [key]: value,
     }));
-    setPage(1); // Reset a página 1
+    setPage(1);
   };
 
-  // Función separada para manejar el cambio de página
   const handlePageChange = (newPage: number) => {
-    console.log("Cambiando a página:", newPage); // Para debug
     setPage(newPage);
   };
 
@@ -40,7 +37,10 @@ export default function Ranking() {
 
   return (
     <div className="w-full p-6 flex flex-col gap-4">
-      <Filtros handleFilterChange={handleFilterChange} />
+      <section className="flex sm:flex-row flex-col items-center justify-center gap-6">
+        <Filtros handleFilterChange={handleFilterChange} />
+      </section>
+
       <Alert variant="bordered" className="bg-rojo-medium/75">
         <span className="text-small w-full font-medium block text-inherit leading-5">
           Los jugadores en <strong>gris</strong> son aquellos que se encuentran

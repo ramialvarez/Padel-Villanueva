@@ -41,7 +41,7 @@ export default function LoginForm() {
       >
         <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Email" />
+          <LabelForm text="Email" obligatorio={true}/>
           <FormField<LoginFormData>
             type="text"
             placeholder="Ingrese el email"
@@ -52,7 +52,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Contraseña" />
+          <LabelForm text="Contraseña" obligatorio={true}/>
           <FormField<LoginFormData>
             type="password"
             placeholder="Ingrese su contraseña"

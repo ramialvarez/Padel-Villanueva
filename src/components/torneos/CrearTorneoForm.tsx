@@ -3,7 +3,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { supabase } from "@/lib/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { torneoSchema, type TorneoFormData } from "@/lib/schemas/torneoSchema";
-import { generoOptions, categoriaTorneoOptions } from "@/constants/torneo";
+import {
+  generoTorneoOptions,
+  categoriaTorneoOptions,
+} from "@/constants/torneo";
 import { Button } from "@heroui/button";
 import LabelForm from "@/components/forms/LabelForm";
 
@@ -75,7 +78,7 @@ export default function CrearTorneoForm() {
             name="genero"
             register={register}
             error={errors.genero}
-            options={generoOptions}
+            options={generoTorneoOptions}
           />
         </div>
         <div className="px-4 py-3 w-lg">

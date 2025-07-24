@@ -7,7 +7,9 @@ import { getSessionFromCookies } from "@/lib/getSession";
 const session = await getSessionFromCookies(Astro);
 ---
 
-<nav class="shadow-md border-b-0 text-gray-700 font-medium">
+<nav
+  class="shadow-md border-b-2 border-gray-line text-gray-700 font-medium text-sm"
+>
   <div class="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
     <div class="flex items-center flex-1 gap-4">
       <a href="/">
@@ -105,7 +107,6 @@ const session = await getSessionFromCookies(Astro);
 </nav>
 
 <script>
-  // Toggle mobile menu
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   const menuClosedIcon = document.getElementById("menu-closed-icon");
