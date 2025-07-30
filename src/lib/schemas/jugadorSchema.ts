@@ -3,9 +3,11 @@ import { z } from "zod";
 
 export const jugadorSchema = z.object({
   nombre: z.string(),
-  imagen: z.string().url().optional(),
-  genero: z.nativeEnum(GeneroJugador),
-  categoria: z.nativeEnum(CategoriaJugador),
+  imagen: z
+    .instanceof(File, { message: "Debés subir una imagen válida" })
+    .nullable(),
+  genero: z.nativeEnum(GeneroJugador).optional(),
+  categoria: z.nativeEnum(CategoriaJugador).optional(),
   observado: z.boolean(),
 });
 

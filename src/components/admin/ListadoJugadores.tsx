@@ -16,11 +16,8 @@ export default function ListadoJugadores() {
 
   const [page, setPage] = useState(1);
 
-  const { players, isLoading, totalCount } = usePlayers(
-    page,
-    PAGE_SIZE,
-    filters
-  );
+  const { players, isLoading, totalCount, delatePlayer, isDeleting } =
+    usePlayers(page, PAGE_SIZE, filters);
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({
@@ -30,6 +27,14 @@ export default function ListadoJugadores() {
     setPage(1);
   };
 
+  const handleDelete = (
+    event: React.MouseEvent<HTMLSpanElement>,
+    id: string
+  ) => {
+    console.log("APRETE EL SPAN");
+    event.preventDefault();
+    delatePlayer(id);
+  };
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
@@ -52,7 +57,12 @@ export default function ListadoJugadores() {
         </section>
       </section>
       <section className="flex flex-col items-center justify-center gap-4">
-        <TablaJugadores players={players ?? []} isLoading={isLoading} />
+        <TablaJugadores
+          players={players ?? []}
+          isLoading={isLoading}
+          deletePlayer={handleDelete}
+          isDeleting={isDeleting}
+        />
 
         {totalPages > 1 && (
           <Pagination

@@ -1,9 +1,10 @@
 import FormField from "@/components/forms/FormField";
+import LabelForm from "@/components/forms/LabelForm";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@heroui/button";
-import LabelForm from "@/components/forms/LabelForm";
 import { loginSchema, type LoginFormData } from "@/lib/schemas/login";
+import { addToast, Button } from "@heroui/react";
 
 export default function LoginForm() {
   const {
@@ -27,10 +28,22 @@ export default function LoginForm() {
         body: formData,
       });
 
-      if (res.ok) {
-        window.location.href = "/admin/torneos/listado";
+      if (!res.ok) {
+        throw new Error("Error en la respuesta");
       }
-    } catch (e) {}
+
+      addToast({
+        title: "Sesión iniciada correctamente",
+        color: "success",
+      });
+
+      window.location.href = "/admin/torneos/listado";
+    } catch (e) {
+      addToast({
+        title: "Error al iniciar sesión " + e,
+        color: "danger",
+      });
+    }
   };
 
   return (
@@ -41,7 +54,7 @@ export default function LoginForm() {
       >
         <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Email" obligatorio={true}/>
+          <LabelForm text="Email" obligatorio={true} />
           <FormField<LoginFormData>
             type="text"
             placeholder="Ingrese el email"
@@ -52,7 +65,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="px-4 py-3 w-lg">
-          <LabelForm text="Contraseña" obligatorio={true}/>
+          <LabelForm text="Contraseña" obligatorio={true} />
           <FormField<LoginFormData>
             type="password"
             placeholder="Ingrese su contraseña"

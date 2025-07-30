@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase } from "./supabase";
 import type { APIContext } from "astro";
 
 export async function getSessionFromCookies(context: APIContext) {
