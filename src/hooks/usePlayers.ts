@@ -44,9 +44,13 @@ export function usePlayers(
     queryClient
   );
 
-  const eliminarJugador = useMutation<void, Error, string>(
+  const eliminarJugador = useMutation<
+    void,
+    Error,
+    { id: string; nombre: string }
+  >(
     {
-      mutationFn: (id: string) => deletePlayer(id),
+      mutationFn: ({ id, nombre }) => deletePlayer(id, nombre),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["jugadores"] });
         queryClient.refetchQueries({ queryKey: ["jugadores"] });

@@ -41,7 +41,7 @@ export default function AgregarJugadorForm() {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-xl mx-auto p-6 border border-gray-line rounded-xl shadow bg-white relative top-20 flex flex-col items-start gap-6"
+      className="max-w-xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white relative top-10 flex flex-col items-start gap-6"
     >
       <h2 className="text-3xl text-title-black font-bold">Agregar Jugador</h2>
       <Controller

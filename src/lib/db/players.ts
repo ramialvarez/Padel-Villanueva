@@ -82,25 +82,82 @@ export async function insertPlayer(player: NewPlayer): Promise<Player> {
   return data;
 }
 
-export async function deletePlayer(id: string) {
-  const { error } = await supabase.from("jugadores").delete().eq("id", id);
+export async function deletePlayer(id: string, nombre: string) {
+  try {
+    // Primero eliminar las imágenes
+    await eliminarImagen(nombre);
 
-  if (error) {
-    throw new Error("Error al eliminar el jugador");
+    // Después eliminar el jugador de la base de datos
+    const { error } = await supabase.from("jugadores").delete().eq("id", id);
+
+    if (error) {
+      console.error("Error eliminando jugador:", error);
+      throw new Error("Error al eliminar el jugador");
+    }
+
+    console.log("Jugador eliminado exitosamente");
+  } catch (error) {
+    console.error("Error en deletePlayer:", error);
+    throw error;
   }
+}
+
+export async function eliminarImagen(folderName: string) {
+  const folderPath = folderName
+    .replace(",", "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+
+  console.log("Intentando eliminar carpeta:", folderPath);
+
+  const { data: files, error: listError } = await supabase.storage
+    .from("jugadores")
+    .list(folderPath + "/", { limit: 100 });
+
+  if (listError) {
+    console.error("Error listando archivos:", listError);
+    throw new Error("No se pudo listar la carpeta.");
+  }
+
+  if (!files || files.length === 0) {
+    console.log("No hay archivos para eliminar.");
+    return;
+  }
+
+  files.forEach((f) => console.log("Archivo encontrado:", f.name));
+
+  const filesToDelete = files.map((file) => `${folderPath}/${file.name}`);
+  console.log("Archivos a eliminar:", filesToDelete);
+
+  const { data: removed, error: removeError } = await supabase.storage
+    .from("jugadores")
+    .remove(filesToDelete);
+
+  if (removeError) {
+    console.error("Error eliminando archivos:", removeError);
+    throw new Error("No se pudieron eliminar los archivos.");
+  }
+
+  console.log("Archivos eliminados con éxito:", removed);
 }
 
 export async function uploadImage(
   file: File,
   playerName: string
 ): Promise<string> {
-  const slugPlayer = playerName.toLowerCase().replace(/\s+/g, "-");
+  const clearName = playerName
+    .replace(",", "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "_");
+
   const safeFileName = file.name.replace(/\s+/g, "-").toLowerCase();
-  const path = `${slugPlayer}/${safeFileName}`;
+  const path = `${clearName}/${safeFileName}`;
 
   const { data: existingFiles, error: listError } = await supabase.storage
     .from("jugadores")
-    .list(slugPlayer);
+    .list(clearName);
 
   if (listError) throw listError;
 
@@ -110,7 +167,7 @@ export async function uploadImage(
 
   if (alreadyExists) {
     const confirmOverwrite = window.confirm(
-      `Ya existe un archivo llamado "${safeFileName}" en la carpeta "${slugPlayer}". ¿Deseás reemplazarlo?`
+      `Ya existe un archivo llamado "${safeFileName}" en la carpeta "${clearName}". ¿Deseás reemplazarlo?`
     );
     if (!confirmOverwrite)
       return supabase.storage.from("jugadores").getPublicUrl(path).data

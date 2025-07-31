@@ -18,7 +18,7 @@ type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 type Props = {
   players: Player[];
   isLoading?: boolean;
-  deletePlayer: (e: React.MouseEvent<HTMLSpanElement>, id: string) => void;
+  deletePlayer: (e: React.MouseEvent<HTMLSpanElement>, id: string, nombre: string) => void;
   isDeleting?: boolean;
 };
 
@@ -69,7 +69,7 @@ export default function TablaJugadores({
                   }`}
                   onClick={(e) => {
                     if (!isDeleting) {
-                      deletePlayer(e, player.id);
+                      deletePlayer(e, player.id, player.nombre);
                     }
                   }}
                 >

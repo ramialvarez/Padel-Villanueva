@@ -29,11 +29,12 @@ export default function ListadoJugadores() {
 
   const handleDelete = (
     event: React.MouseEvent<HTMLSpanElement>,
-    id: string
+    id: string,
+    nombre: string
   ) => {
     console.log("APRETE EL SPAN");
     event.preventDefault();
-    delatePlayer(id);
+    delatePlayer({ id, nombre });
   };
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
