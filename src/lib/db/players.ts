@@ -5,6 +5,7 @@ import { type JugadorFormData } from "@/lib/schemas/jugadorSchema";
 
 type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 type NewPlayer = Database["public"]["Tables"]["jugadores"]["Insert"];
+type UpdatePlayer = Database["public"]["Tables"]["jugadores"]["Update"];
 
 export async function getAllPlayers(
   page: number,
@@ -39,6 +40,22 @@ export async function getAllPlayers(
   return { data: data ?? [], count: count ?? 0 };
 }
 
+export async function getPlayerById(
+  id: string | undefined
+): Promise<Player | null> {
+  const { error, data } = await supabase
+    .from("jugadores")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error("Error al obtener el jugador" + error);
+  }
+
+  return data;
+}
+
 export async function handleCreatePlayer(data: JugadorFormData) {
   try {
     let imageUrl: string | null = null;
@@ -49,8 +66,8 @@ export async function handleCreatePlayer(data: JugadorFormData) {
 
     const player: NewPlayer = {
       nombre: data.nombre,
-      categoria: data?.categoria,
-      genero: data?.genero,
+      categoria: String(data?.categoria),
+      genero: String(data?.genero),
       observado: data.observado,
       imagen: imageUrl,
     };
@@ -82,12 +99,57 @@ export async function insertPlayer(player: NewPlayer): Promise<Player> {
   return data;
 }
 
+export async function handleUpdatePlayer(
+  data: JugadorFormData,
+  id: string | undefined
+) {
+  try {
+    const player: UpdatePlayer = {
+      id: id,
+      nombre: data.nombre,
+      categoria: String(data.categoria),
+      genero: String(data.genero),
+      observado: data.observado,
+    };
+
+    // Solo si se subió una nueva imagen, la procesamos
+    if (data.imagen) {
+      const imageUrl = await uploadImage(data.imagen, data.nombre);
+      player.imagen = imageUrl;
+    }
+
+    await updatePlayer(player);
+
+    addToast({
+      title: "Jugador editado correctamente",
+      color: "success",
+    });
+  } catch (error) {
+    addToast({
+      title: "Error al editar el jugador " + error,
+      color: "danger",
+    });
+    throw error;
+  }
+}
+
+export async function updatePlayer(player: UpdatePlayer): Promise<Player> {
+  const { data, error } = await supabase
+    .from("jugadores")
+    .update(player)
+    .eq("id", player.id)
+    .select()
+    .single();
+
+  if (error) throw new Error("Error al editar el jugador" + error.message);
+
+  return data;
+}
+
 export async function deletePlayer(id: string, nombre: string) {
   try {
-    // Primero eliminar las imágenes
     await eliminarImagen(nombre);
 
-    // Después eliminar el jugador de la base de datos
     const { error } = await supabase.from("jugadores").delete().eq("id", id);
 
     if (error) {

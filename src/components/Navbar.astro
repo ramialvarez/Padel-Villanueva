@@ -76,7 +76,10 @@ const session = await getSessionFromCookies(Astro);
 
         {
           Boolean(session) && (
-            <NavLink url="/admin/panel" text="Panel de Administración" />
+            <NavLink
+              url="/admin/jugadores/listado"
+              text="Panel de Administración"
+            />
           )
         }
       </ul>

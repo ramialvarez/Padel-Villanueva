@@ -18,7 +18,11 @@ type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 type Props = {
   players: Player[];
   isLoading?: boolean;
-  deletePlayer: (e: React.MouseEvent<HTMLSpanElement>, id: string, nombre: string) => void;
+  deletePlayer: (
+    e: React.MouseEvent<HTMLSpanElement>,
+    id: string,
+    nombre: string
+  ) => void;
   isDeleting?: boolean;
 };
 
@@ -58,7 +62,12 @@ export default function TablaJugadores({
           return (
             <div className="relative flex items-center justify-center gap-2">
               <Tooltip content="Editar jugador">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <span
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                  onClick={() => {
+                    window.location.href = `/admin/jugadores/${player.id}/editarJugador`;
+                  }}
+                >
                   <Pencil />
                 </span>
               </Tooltip>
@@ -87,7 +96,7 @@ export default function TablaJugadores({
       }
     },
     [deletePlayer, isDeleting]
-  ); 
+  );
 
   return (
     <div className="relative w-full">

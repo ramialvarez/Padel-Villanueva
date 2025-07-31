@@ -2,12 +2,14 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/store/queryClient";
 import {
   getAllPlayers,
+  getPlayerById,
   handleCreatePlayer,
+  handleUpdatePlayer,
   deletePlayer,
 } from "@/lib/db/players";
-import type { Database } from "@/types/supabase";
-import { type JugadorFormData } from "@/lib/schemas/jugadorSchema";
 import { addToast } from "@heroui/react";
+import type { JugadorFormData } from "@/lib/schemas/jugadorSchema";
+import type { Database } from "@/types/supabase";
 
 type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 
@@ -16,10 +18,7 @@ export function usePlayers(
   limit = 10,
   filters?: { search: string; genero: string; categoria: string }
 ) {
-  const playersQuery = useQuery<{
-    data: Player[];
-    count: number;
-  }>(
+  const query = useQuery(
     {
       queryKey: ["jugadores", page, filters],
       queryFn: () =>
@@ -33,9 +32,53 @@ export function usePlayers(
     queryClient
   );
 
-  const createPlayer = useMutation(
+  return {
+    players: query.data?.data ?? [],
+    count: query.data?.count ?? 0,
+    isLoading: query.isLoading,
+    error: query.error,
+  };
+}
+
+export function usePlayer(id?: string | undefined) {
+  const getPlayer = useQuery(
     {
-      mutationFn: (formData: JugadorFormData) => handleCreatePlayer(formData),
+      queryKey: ["jugador", id],
+      queryFn: () => getPlayerById(id),
+      staleTime: 1000 * 60 * 5,
+    },
+    queryClient
+  );
+
+  return {
+    player: getPlayer?.data,
+    isLoading: getPlayer.isLoading,
+  };
+}
+
+export function useCreatePlayer() {
+  const createPlayer = useMutation({
+    mutationFn: (formData: JugadorFormData) => handleCreatePlayer(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jugadores"] });
+      window.location.replace("/admin/jugadores/listado");
+    },
+  });
+
+  return {
+    createPlayer: createPlayer.mutate,
+    isCreating: createPlayer.isPending,
+  };
+}
+
+export function useUpdatePlayer() {
+  const updatePlayer = useMutation<
+    void,
+    Error,
+    { formData: JugadorFormData; id: string | undefined }
+  >(
+    {
+      mutationFn: ({ formData, id }) => handleUpdatePlayer(formData, id),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["jugadores"] });
         window.location.replace("/admin/jugadores/listado");
@@ -44,6 +87,13 @@ export function usePlayers(
     queryClient
   );
 
+  return {
+    updatePlayer: updatePlayer.mutate,
+    isUpdating: updatePlayer.isPending,
+  };
+}
+
+export function useDeletePlayer() {
   const eliminarJugador = useMutation<
     void,
     Error,
@@ -54,7 +104,6 @@ export function usePlayers(
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["jugadores"] });
         queryClient.refetchQueries({ queryKey: ["jugadores"] });
-
         addToast({
           title: "Jugador eliminado correctamente",
           color: "success",
@@ -62,9 +111,7 @@ export function usePlayers(
       },
       onError: (error) => {
         addToast({
-          title:
-            "Error al eliminar el jugador: " +
-            (error instanceof Error ? error.message : String(error)),
+          title: "Error al eliminar el jugador: " + error.message,
           color: "danger",
         });
       },
@@ -73,13 +120,7 @@ export function usePlayers(
   );
 
   return {
-    players: playersQuery.data?.data,
-    totalCount: playersQuery.data?.count,
-    isLoading: playersQuery.isLoading,
-    isError: playersQuery.isError,
-    createPlayer: createPlayer.mutate,
-    isCreating: createPlayer.isPending,
-    delatePlayer: eliminarJugador.mutate,
+    deletePlayer: eliminarJugador.mutate,
     isDeleting: eliminarJugador.isPending,
   };
 }

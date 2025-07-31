@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Pagination } from "@heroui/react";
 import TablaJugadores from "@/components/admin/TablaJugadores";
-import { usePlayers } from "@/hooks/usePlayers";
+import { useDeletePlayer, usePlayers } from "@/hooks/usePlayers";
 import Filtros from "@/components/common/Filtros";
 import { Plus } from "lucide-react";
 
@@ -15,9 +15,13 @@ export default function ListadoJugadores() {
   });
 
   const [page, setPage] = useState(1);
+  const {
+    players,
+    count: totalCount,
+    isLoading,
+  } = usePlayers(page, PAGE_SIZE, filters);
 
-  const { players, isLoading, totalCount, delatePlayer, isDeleting } =
-    usePlayers(page, PAGE_SIZE, filters);
+  const { deletePlayer, isDeleting } = useDeletePlayer();
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({
@@ -34,7 +38,7 @@ export default function ListadoJugadores() {
   ) => {
     console.log("APRETE EL SPAN");
     event.preventDefault();
-    delatePlayer({ id, nombre });
+    deletePlayer({ id, nombre });
   };
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

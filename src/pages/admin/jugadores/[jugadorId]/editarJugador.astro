@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import EditarJugadorForm from "@/components/jugadores/EditarJugadorForm";
+
+interface Props {
+  jugadorId: string;
+}
+const { jugadorId } = Astro.params;
+---
+
+<Layout title="Editar jugador">
+  <EditarJugadorForm id={jugadorId} client:load />
+</Layout>
