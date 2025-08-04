@@ -15,11 +15,11 @@ export default function Ranking() {
 
   const [page, setPage] = useState(1);
 
-  const { players, isLoading, totalCount } = usePlayers(
-    page,
-    PAGE_SIZE,
-    filters
-  );
+  const {
+    players,
+    count: totalCount,
+    isLoading,
+  } = usePlayers(page, PAGE_SIZE, filters);
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({

@@ -17,7 +17,7 @@ import {
   generoJugadorOptions,
   categoriaJugadorOptions,
 } from "@/constants/torneo";
-import { usePlayers } from "@/hooks/usePlayers";
+import { useCreatePlayer } from "@/hooks/usePlayers";
 
 export default function AgregarJugadorForm() {
   const { handleSubmit, control } = useForm<JugadorFormData>({
@@ -31,10 +31,9 @@ export default function AgregarJugadorForm() {
     },
   });
 
-  const { createPlayer } = usePlayers();
+  const { createPlayer } = useCreatePlayer();
 
   const onSubmit = async (data: JugadorFormData) => {
-    console.log(data);
     createPlayer(data);
   };
 
