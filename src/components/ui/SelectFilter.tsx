@@ -42,6 +42,7 @@ export default function SelectFilter({
       classNames={{
         value: "text-black",
         trigger: "focus:outline-none focus:ring-0 focus:ring-transparent",
+        label: "text-base",
       }}
     >
       {(item) => <SelectItem key={item.value}>{item.label}</SelectItem>}
