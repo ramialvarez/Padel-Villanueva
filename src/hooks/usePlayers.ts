@@ -9,9 +9,6 @@ import {
 } from "@/lib/db/players";
 import { addToast } from "@heroui/react";
 import type { JugadorFormData } from "@/lib/schemas/jugadorSchema";
-import type { Database } from "@/types/supabase";
-
-type Player = Database["public"]["Tables"]["jugadores"]["Row"];
 
 export function usePlayers(
   page = 1,
@@ -57,13 +54,16 @@ export function usePlayer(id?: string | undefined) {
 }
 
 export function useCreatePlayer() {
-  const createPlayer = useMutation({
-    mutationFn: (formData: JugadorFormData) => handleCreatePlayer(formData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["jugadores"] });
-      window.location.replace("/admin/jugadores/listado");
+  const createPlayer = useMutation(
+    {
+      mutationFn: (formData: JugadorFormData) => handleCreatePlayer(formData),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["jugadores"] });
+        window.location.replace("/admin/jugadores/listado");
+      },
     },
-  });
+    queryClient
+  );
 
   return {
     createPlayer: createPlayer.mutate,

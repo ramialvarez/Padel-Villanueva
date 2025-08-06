@@ -1,11 +1,16 @@
 import LabelForm from "@/components/forms/LabelForm";
-
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "@/lib/schemas/login";
 import { Form, Input, Button, addToast } from "@heroui/react";
+import { Eye, EyeClosed } from "lucide-react";
+import { useState } from "react";
 
 export default function LoginForm() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
   const { handleSubmit, control } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -51,32 +56,6 @@ export default function LoginForm() {
       className="max-w-xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white relative top-30 flex flex-col items-start gap-6"
     >
       <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
-      {/* <div className="px-4 py-3 w-lg">
-        <LabelForm text="Email" obligatorio={true} />
-        <FormField<LoginFormData>
-          type="text"
-          placeholder="Ingrese el email"
-          name="email"
-          register={register}
-          autocomplete="username"
-          error={errors.email}
-        />
-      </div> 
-      
-      <div className="px-4 py-3 w-lg">
-        <LabelForm text="Contraseña" obligatorio={true} />
-        <FormField<LoginFormData>
-          type="password"
-          placeholder="Ingrese su contraseña"
-          name="password"
-          register={register}
-          autocomplete="current-password"
-          error={errors.password}
-        />
-      </div>
-      
-      */}
-
       <Controller
         control={control}
         name="email"
@@ -102,8 +81,22 @@ export default function LoginForm() {
           <div className="flex flex-col gap-1 w-full">
             <LabelForm text="Contraseña" obligatorio={true} />
             <Input
+              endContent={
+                <button
+                  aria-label="toggle password visibility"
+                  className="focus:outline-solid outline-transparent"
+                  type="button"
+                  onClick={toggleVisibility}
+                >
+                  {isVisible ? (
+                    <EyeClosed className="text-2xl text-default-400 pointer-events-none" />
+                  ) : (
+                    <Eye className="text-2xl text-default-400 pointer-events-none" />
+                  )}
+                </button>
+              }
               className="text-title-black"
-              type="password"
+              type={isVisible ? "text" : "password"}
               {...field}
               placeholder="Ingrese la contraseña"
               isRequired
@@ -113,8 +106,13 @@ export default function LoginForm() {
           </div>
         )}
       />
-      <div className="mt-4">
-        <Button type="submit">Iniciar Sesión</Button>
+      <div className="mt-4 mx-auto">
+        <Button
+          className=" bg-bordo hover:bg-rojo-oscuro text-white"
+          type="submit"
+        >
+          Iniciar Sesión
+        </Button>
       </div>
     </Form>
   );

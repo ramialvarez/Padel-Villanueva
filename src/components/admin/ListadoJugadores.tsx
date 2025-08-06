@@ -4,6 +4,10 @@ import TablaJugadores from "@/components/admin/TablaJugadores";
 import { useDeletePlayer, usePlayers } from "@/hooks/usePlayers";
 import Filtros from "@/components/common/Filtros";
 import { Plus } from "lucide-react";
+import {
+  categoriaJugadorOptions,
+  generoJugadorOptions,
+} from "@/constants/torneo";
 
 const PAGE_SIZE = 10;
 
@@ -50,7 +54,12 @@ export default function ListadoJugadores() {
     <div className="w-full h-auto overflow-hidden">
       <section className="flex items-center gap-6 mb-6">
         <section className="flex lg:flex-row flex-col items-center justify-center lg:flex-wrap gap-6 lg:m-0 m-auto">
-          <Filtros handleFilterChange={handleFilterChange} />
+          <Filtros
+            handleFilterChange={handleFilterChange}
+            placeholderSearch="Ingrese el nombre o apellido"
+            generoOptions={generoJugadorOptions}
+            categoriaOptions={categoriaJugadorOptions}
+          />
           <a href="/admin/jugadores/agregarJugador">
             <Button
               className="bg-bordo hover:bg-rojo-oscuro text-white lg:mt-[22px] mt-0"

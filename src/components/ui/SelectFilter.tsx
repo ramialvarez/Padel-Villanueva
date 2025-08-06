@@ -28,7 +28,7 @@ export default function SelectFilter({
   const Icon = iconMap[iconName];
   return (
     <Select
-      className="max-w-xs w-xs"
+      className="max-w-xs lg:w-[250px] w-xs"
       variant="bordered"
       labelPlacement="outside"
       items={items}
@@ -37,10 +37,10 @@ export default function SelectFilter({
       placeholder={placeholder}
       isClearable={true}
       onChange={(e) => {
-        onChange(e.target.value); 
+        onChange(e.target.value);
       }}
       classNames={{
-        value: "text-black", 
+        value: "text-black",
         trigger: "focus:outline-none focus:ring-0 focus:ring-transparent",
       }}
     >

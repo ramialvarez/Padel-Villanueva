@@ -3,6 +3,10 @@ import Tabla from "@/components/ranking/Tabla";
 import { usePlayers } from "@/hooks/usePlayers";
 import Filtros from "@/components/common/Filtros";
 import { Pagination, Alert } from "@heroui/react";
+import {
+  categoriaJugadorOptions,
+  generoJugadorOptions,
+} from "@/constants/torneo";
 
 const PAGE_SIZE = 10;
 
@@ -38,7 +42,12 @@ export default function Ranking() {
   return (
     <div className="w-full p-6 flex flex-col gap-4">
       <section className="flex sm:flex-row flex-col items-center justify-center gap-6">
-        <Filtros handleFilterChange={handleFilterChange} />
+        <Filtros
+          handleFilterChange={handleFilterChange}
+          placeholderSearch="Ingrese el nombre o apellido"
+          generoOptions={generoJugadorOptions}
+          categoriaOptions={categoriaJugadorOptions}
+        />
       </section>
 
       <Alert variant="bordered" className="bg-rojo-medium/75">

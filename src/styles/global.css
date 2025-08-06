@@ -40,12 +40,13 @@
 }
 
 html {
-  @apply m-0 p-0 h-full;
+  @apply m-0 p-0 ;
   font-family: "Poppins", sans-serif;
+  background-color: var(--color-gray-input);
 }
 
 body {
-  @apply bg-gray-input h-full;
+  @apply h-full min-h-screen;
 }
 
 main {
@@ -57,4 +58,3 @@ main {
     display: none;
   }
 }
-

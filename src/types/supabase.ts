@@ -372,7 +372,7 @@ export type Database = {
           fecha_inicio: string
           genero: string
           id: string
-          imagen: string
+          imagen: string | null
           titulo: string
         }
         Insert: {
@@ -382,7 +382,7 @@ export type Database = {
           fecha_inicio: string
           genero: string
           id?: string
-          imagen: string
+          imagen?: string | null
           titulo: string
         }
         Update: {
@@ -392,7 +392,7 @@ export type Database = {
           fecha_inicio?: string
           genero?: string
           id?: string
-          imagen?: string
+          imagen?: string | null
           titulo?: string
         }
         Relationships: []
