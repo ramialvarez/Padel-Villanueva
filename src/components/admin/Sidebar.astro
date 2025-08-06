@@ -1,53 +1,42 @@
 ---
-import { Trophy, PersonStanding, Menu, X } from "@lucide/astro";
+import { Trophy, PersonStanding } from "@lucide/astro";
 ---
 
 <!-- Sidebar -->
 <aside
   id="sidebar"
-  class="fixed h-screen w-16 md:w-64 bg-gray-input border-r-2 border-gray-line flex flex-col items-center p-2 md:p-4 lg:p-6 z-30 transition-all duration-300 ease-in-out overflow-hidden"
+  class="w-16 lg:w-64 bg-gray-input border-r-2 border-gray-line flex flex-col items-center p-2 lg:p-6 transition-all duration-300 ease-in-out"
 >
-  <!-- Botón toggle - solo visible en móvil -->
-  <button
-    id="sidebar-toggle"
-    class="w-12 h-12 mb-4 md:hidden flex items-center justify-center hover:bg-gray-line rounded-lg transition-colors duration-200"
-  >
-    <Menu id="menu-icon" class="size-5" />
-    <X id="close-icon" class="size-5 hidden" />
-  </button>
-
   <!-- Logo y título -->
-  <div
-    class="flex flex-col justify-center items-center w-full mb-4 md:mb-2 lg:mb-0"
-  >
+  <div class="flex flex-col justify-center items-center w-full mb-4 lg:mb-0">
     <img
       src="/logo_navbar.webp"
       alt="Logo padel villanueva"
-      class="w-10 h-10 md:w-12 md:h-12 lg:w-auto lg:h-auto object-contain"
+      class="w-10 h-10 lg:w-auto lg:h-auto object-contain"
     />
     <h2
       id="sidebar-title"
-      class="hidden md:block text-sm md:text-base lg:text-xl p-2 font-semibold text-transparent bg-gradient-to-r from-rojo-oscuro to-bordo/80 bg-clip-text text-center text-balance opacity-0 md:opacity-100 transition-opacity duration-300"
+      class="hidden lg:block text-xl p-2 font-semibold text-transparent bg-gradient-to-r from-rojo-oscuro to-bordo/80 bg-clip-text text-center text-balance transition-opacity duration-300"
     >
       Panel de administración
     </h2>
   </div>
 
   <!-- Navegación -->
-  <nav class="flex-1 w-full mt-4 md:mt-8 lg:mt-20">
+  <nav class="flex-1 w-full mt-4 lg:mt-20">
     <ul
-      class="flex flex-col items-center md:items-start justify-center gap-3 md:gap-4 lg:gap-6 w-full"
+      class="flex flex-col items-center lg:items-start justify-center gap-3 lg:gap-6 w-full"
     >
       <li class="w-full">
         <a
           href="/admin/jugadores/listado"
-          class="flex items-center justify-center md:justify-start gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-3 md:p-2 lg:p-2 rounded-lg transition-colors duration-200"
+          class="flex items-center justify-center lg:justify-start gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-3 lg:p-2 rounded-lg transition-colors duration-200"
           title="Jugadores"
         >
-          <PersonStanding class="size-6 md:size-6 lg:size-7 flex-shrink-0" />
+          <PersonStanding class="size-6 lg:size-7 flex-shrink-0" />
           <span
             id="jugadores-text"
-            class="text-sm md:text-sm lg:text-base hidden md:inline opacity-0 md:opacity-100 transition-opacity duration-300"
+            class="text-base hidden lg:inline transition-opacity duration-300"
             >Jugadores</span
           >
         </a>
@@ -55,13 +44,13 @@ import { Trophy, PersonStanding, Menu, X } from "@lucide/astro";
       <li class="w-full">
         <a
           href="/admin/torneos/listado"
-          class="flex items-center justify-center md:justify-start gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-3 md:p-2 lg:p-2 rounded-lg transition-colors duration-200"
+          class="flex items-center justify-center lg:justify-start gap-3 hover:bg-gray-line hover:cursor-pointer hover:rounded-xl w-full p-3 lg:p-2 rounded-lg transition-colors duration-200"
           title="Torneos"
         >
-          <Trophy class="size-5 md:size-5 lg:size-6 flex-shrink-0" />
+          <Trophy class="size-5 lg:size-6 flex-shrink-0" />
           <span
             id="torneos-text"
-            class="text-sm md:text-sm lg:text-base hidden md:inline opacity-0 md:opacity-100 transition-opacity duration-300"
+            class="text-base hidden lg:inline transition-opacity duration-300"
             >Torneos</span
           >
         </a>
@@ -70,124 +59,34 @@ import { Trophy, PersonStanding, Menu, X } from "@lucide/astro";
   </nav>
 </aside>
 
-<!-- Overlay para sidebar expandida en móvil -->
-<div
-  id="sidebar-overlay"
-  class="fixed inset-0 bg-black/30 z-20 md:hidden hidden"
->
-</div>
-
 <script>
-  // Funcionalidad del sidebar móvil
-  const sidebarToggle = document.getElementById("sidebar-toggle");
-  const sidebar = document.getElementById("sidebar");
-  const sidebarOverlay = document.getElementById("sidebar-overlay");
-  const menuIcon = document.getElementById("menu-icon");
-  const closeIcon = document.getElementById("close-icon");
-  const sidebarTitle = document.getElementById("sidebar-title");
-  const jugadoresText = document.getElementById("jugadores-text");
-  const torneosText = document.getElementById("torneos-text");
-
-  function toggleSidebar() {
-    const isExpanded = sidebar?.classList.contains("w-64");
-
-    if (isExpanded) {
-      // Contraer sidebar
-      sidebar?.classList.remove("w-64");
-      sidebar?.classList.add("w-16");
-      sidebarOverlay?.classList.add("hidden");
-      menuIcon?.classList.remove("hidden");
-      closeIcon?.classList.add("hidden");
-
-      // Ocultar textos
-      sidebarTitle?.classList.add("hidden", "opacity-0");
-      jugadoresText?.classList.add("hidden", "opacity-0");
-      torneosText?.classList.add("hidden", "opacity-0");
-    } else {
-      // Expandir sidebar
-      sidebar?.classList.remove("w-16");
-      sidebar?.classList.add("w-64");
-      sidebarOverlay?.classList.remove("hidden");
-      menuIcon?.classList.add("hidden");
-      closeIcon?.classList.remove("hidden");
-
-      // Mostrar textos con delay para animación
-      setTimeout(() => {
-        sidebarTitle?.classList.remove("hidden");
-        jugadoresText?.classList.remove("hidden");
-        torneosText?.classList.remove("hidden");
-
-        setTimeout(() => {
-          sidebarTitle?.classList.remove("opacity-0");
-          jugadoresText?.classList.remove("opacity-0");
-          torneosText?.classList.remove("opacity-0");
-        }, 50);
-      }, 150);
-    }
-  }
-
-  // Event listeners para móvil (siempre agregar en móvil)
-  sidebarToggle?.addEventListener("click", toggleSidebar);
-  sidebarOverlay?.addEventListener("click", toggleSidebar);
-
-  // Cerrar sidebar al hacer clic en un enlace en móvil
-  const sidebarLinks = sidebar?.querySelectorAll("a");
-  sidebarLinks?.forEach((link) => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth < 768 && sidebar?.classList.contains("w-64")) {
-        toggleSidebar();
-      }
-    });
-  });
-
-  // Resetear sidebar al cambiar tamaño de pantalla
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768) {
-      // Desktop/Tablet: resetear a estado expandido y ocultar overlay
-      sidebar?.classList.remove("w-16");
-      sidebar?.classList.add("w-64");
-      sidebarOverlay?.classList.add("hidden");
-      sidebarTitle?.classList.remove("hidden", "opacity-0");
-      jugadoresText?.classList.remove("hidden", "opacity-0");
-      torneosText?.classList.remove("hidden", "opacity-0");
-      menuIcon?.classList.remove("hidden");
-      closeIcon?.classList.add("hidden");
-    } else {
-      // Móvil: contraer sidebar y resetear iconos
-      sidebar?.classList.remove("w-64");
-      sidebar?.classList.add("w-16");
-      sidebarOverlay?.classList.add("hidden");
-      sidebarTitle?.classList.add("hidden", "opacity-0");
-      jugadoresText?.classList.add("hidden", "opacity-0");
-      torneosText?.classList.add("hidden", "opacity-0");
-      menuIcon?.classList.remove("hidden");
-      closeIcon?.classList.add("hidden");
-    }
-  });
-
-  // Inicializar estado según tamaño de pantalla
+  // Funcionalidad básica de inicialización (sin toggle)
   function initializeSidebar() {
-    if (window.innerWidth < 768) {
-      // Móvil: contraído
-      sidebar?.classList.remove("w-64");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarTitle = document.getElementById("sidebar-title");
+    const jugadoresText = document.getElementById("jugadores-text");
+    const torneosText = document.getElementById("torneos-text");
+
+    if (window.innerWidth < 1024) {
+      // Tablet y móvil: contraído (w-16)
+      sidebar?.classList.remove("lg:w-64");
       sidebar?.classList.add("w-16");
-      sidebarOverlay?.classList.add("hidden");
-      sidebarTitle?.classList.add("hidden", "opacity-0");
-      jugadoresText?.classList.add("hidden", "opacity-0");
-      torneosText?.classList.add("hidden", "opacity-0");
-      menuIcon?.classList.remove("hidden");
-      closeIcon?.classList.add("hidden");
+      sidebarTitle?.classList.add("hidden");
+      jugadoresText?.classList.add("hidden");
+      torneosText?.classList.add("hidden");
     } else {
-      // Tablet/Desktop: expandido
+      // Desktop: expandido (w-64)
       sidebar?.classList.remove("w-16");
-      sidebar?.classList.add("w-64");
-      sidebarOverlay?.classList.add("hidden");
-      sidebarTitle?.classList.remove("hidden", "opacity-0");
-      jugadoresText?.classList.remove("hidden", "opacity-0");
-      torneosText?.classList.remove("hidden", "opacity-0");
+      sidebar?.classList.add("lg:w-64");
+      sidebarTitle?.classList.remove("hidden");
+      jugadoresText?.classList.remove("hidden");
+      torneosText?.classList.remove("hidden");
     }
   }
+
+  // Manejar cambios de tamaño de pantalla
+  window.addEventListener("resize", initializeSidebar);
 
   // Inicializar al cargar la página
-  initializeSidebar();
+  document.addEventListener("DOMContentLoaded", initializeSidebar);
 </script>

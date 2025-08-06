@@ -53,7 +53,7 @@ export default function ListadoJugadores() {
   return (
     <div className="w-full h-auto overflow-hidden">
       <section className="flex items-center gap-6 mb-6">
-        <section className="flex lg:flex-row flex-col items-center justify-center lg:flex-wrap gap-6 lg:m-0 m-auto">
+        <section className="flex md:flex-row flex-col items-center justify-center md:flex-wrap gap-6 lg:m-0 m-auto lg:w-auto w-[285px]">
           <Filtros
             handleFilterChange={handleFilterChange}
             placeholderSearch="Ingrese el nombre o apellido"
