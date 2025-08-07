@@ -64,7 +64,6 @@ export async function getQualifiedPlayers(genero: string, categoria: string) {
   }
   const { data, error } = await query;
 
-  console.log("SE ESTÁ EJECUTANDO LA FUNCIÓN");
   if (error) {
     throw new Error(
       "Error al obtener los jugadores aptos para agregar al torneo solicitado: " +

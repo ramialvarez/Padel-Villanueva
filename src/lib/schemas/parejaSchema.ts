@@ -10,4 +10,5 @@ export const parejaSchema = z
     path: ["jugador2"],
   });
 
-export type parejaFormData = z.infer<typeof parejaSchema>;
+export type ParejaFormData = z.infer<typeof parejaSchema>;
+
