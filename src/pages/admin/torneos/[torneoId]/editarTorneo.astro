@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import EditarTorneoForm from "@/components/torneos/EditarTorneoForm";
+
+interface Props {
+  torneoId: string;
+}
+const { torneoId } = Astro.params;
+---
+
+<Layout title="Editar torneo">
+  <EditarTorneoForm id={torneoId} client:load />
+</Layout>

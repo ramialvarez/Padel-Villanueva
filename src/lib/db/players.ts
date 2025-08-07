@@ -56,6 +56,28 @@ export async function getPlayerById(
   return data;
 }
 
+export async function getQualifiedPlayers(genero: string, categoria: string) {
+  let query = supabase.from("jugadores").select("id, nombre");
+
+  if (genero === "Femenino" || !categoria.includes("Suma")) {
+    query = query.eq("genero", genero).eq("categoria", categoria);
+  }
+  const { data, error } = await query;
+
+  console.log("SE ESTÁ EJECUTANDO LA FUNCIÓN");
+  if (error) {
+    throw new Error(
+      "Error al obtener los jugadores aptos para agregar al torneo solicitado: " +
+        error.message
+    );
+  }
+
+  return data.map((jugador) => ({
+    label: jugador.nombre,
+    value: jugador.id,
+  }));
+}
+
 export async function handleCreatePlayer(data: JugadorFormData) {
   try {
     let imageUrl: string | null = null;

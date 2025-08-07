@@ -10,9 +10,6 @@ export default function SearchFilter({ placeholder, onChange }: Props) {
     <>
       <Input
         startContent={<Search className="w-5 h-5" />}
-        classNames={{
-          label: "text-base", 
-        }}
         className="max-w-xs sm:w-xs"
         label="Nombre o apellido del jugador"
         labelPlacement="outside"

@@ -6,9 +6,15 @@ import {
   handleCreatePlayer,
   handleUpdatePlayer,
   deletePlayer,
+  getQualifiedPlayers,
 } from "@/lib/db/players";
 import { addToast } from "@heroui/react";
 import type { JugadorFormData } from "@/lib/schemas/jugadorSchema";
+
+type TournamentPlayersOptions = {
+  genero?: string;
+  categoria?: string;
+};
 
 export function usePlayers(
   page = 1,
@@ -32,6 +38,26 @@ export function usePlayers(
   return {
     players: query.data?.data ?? [],
     count: query.data?.count ?? 0,
+    isLoading: query.isLoading,
+    error: query.error,
+  };
+}
+
+export function useTournamentPlayers({
+  genero = "",
+  categoria = "",
+}: TournamentPlayersOptions) {
+  const query = useQuery(
+    {
+      queryKey: ["jugadoresTorneo", genero, categoria],
+      queryFn: () => getQualifiedPlayers(genero, categoria),
+      staleTime: 1000 * 60 * 5,
+    },
+    queryClient
+  );
+
+  return {
+    jugadoresAptos: query.data ?? [],
     isLoading: query.isLoading,
     error: query.error,
   };

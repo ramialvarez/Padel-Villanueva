@@ -1,0 +1,13 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import AñadirParejaForm from "@/components/torneos/AñadirParejaForm";
+
+interface Props {
+  torneoId: string;
+}
+const { torneoId } = Astro.params;
+---
+
+<Layout title="Agregar parejas">
+  <AñadirParejaForm id={torneoId} client:load />
+</Layout>

@@ -64,15 +64,18 @@ export function useTournament(id?: string | undefined) {
     isLoading: getTournament.isLoading,
   };
 }
-
 export function useCreateTournament() {
   const createTournament = useMutation(
     {
       mutationFn: (formData: TorneoFormData) =>
         handleCreateTournament(formData),
-      onSuccess: () => {
+      onSuccess: (tournament) => {
         queryClient.invalidateQueries({ queryKey: ["torneos"] });
-        window.location.replace("/admin/torneos/listado");
+        if (tournament?.id) {
+          window.location.replace(
+            `/admin/torneos/${tournament.id}/agregarParejas`
+          );
+        }
       },
     },
     queryClient
@@ -94,7 +97,7 @@ export function useUpdateTournament() {
       mutationFn: ({ formData, id }) => handleUpdateTournament(formData, id),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["torneos"] });
-        window.location.replace("/admin/torneps/listado");
+        window.location.replace("/admin/torneos/listado");
       },
     },
     queryClient

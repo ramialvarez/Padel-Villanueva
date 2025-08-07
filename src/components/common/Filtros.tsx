@@ -40,7 +40,7 @@ export default function Filtros({
         <>
           <Input
             type="date"
-            className="max-w-xs lg:w-[200px] w-xs"
+            className="max-w-xs lg:w-[200px] sm:w-xs"
             label="Fecha de inicio del torneo"
             labelPlacement="outside"
             variant="bordered"
@@ -50,7 +50,7 @@ export default function Filtros({
 
           <Input
             type="date"
-            className="max-w-xs lg:w-[200px] w-xs"
+            className="max-w-xs lg:w-[200px] sm:w-xs"
             label="Fecha de fin del torneo"
             labelPlacement="outside"
             variant="bordered"

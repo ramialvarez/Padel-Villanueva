@@ -92,12 +92,14 @@ export async function handleCreateTournament(data: TorneoFormData) {
       imagen: imageUrl,
     };
 
-    await insertTournament(tournament);
+    const createdTournament = await insertTournament(tournament);
 
     addToast({
       title: "Torneo insertado correctamente",
       color: "success",
     });
+
+    return createdTournament;
   } catch (error) {
     addToast({
       title: "Error al insertar el torneo " + error,
