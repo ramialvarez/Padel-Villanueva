@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Form, Select, SelectItem } from "@heroui/react";
+import { Button, Form, Select, SelectItem, Tooltip } from "@heroui/react";
 import LabelForm from "@/components/forms/LabelForm";
 import { useTournament } from "@/hooks/useTournaments";
 import { useTournamentPlayers } from "@/hooks/usePlayers";
@@ -86,16 +86,17 @@ export default function AñadirParejaForm({ id }: Props) {
 
       <Form
         onSubmit={handleAddSubmit(addPlayer)}
-        className="flex flex-row gap-4"
+        className="flex flex-col sm:flex-row gap-4 flex-wrap w-full"
       >
+        {/* Jugador 1 */}
         <Controller
           control={control}
           name="jugador1"
           render={({ field, fieldState: { error } }) => (
-            <div className="flex flex-col gap-1 w-full">
+            <div className="flex flex-col gap-1 w-full sm:w-auto sm:flex-1">
               <LabelForm text="Jugador uno" obligatorio={true} />
               <Select
-                className="w-xs"
+                className="w-full sm:w-48"
                 size="sm"
                 items={jugadoresAptos}
                 selectedKeys={field.value ? new Set([field.value]) : new Set()}
@@ -114,14 +115,15 @@ export default function AñadirParejaForm({ id }: Props) {
           )}
         />
 
+        {/* Jugador 2 */}
         <Controller
           control={control}
           name="jugador2"
           render={({ field, fieldState: { error } }) => (
-            <div className="flex flex-col gap-1 w-full">
+            <div className="flex flex-col gap-1 w-full sm:w-auto sm:flex-1">
               <LabelForm text="Jugador dos" obligatorio={true} />
               <Select
-                className="w-xs"
+                className="w-full sm:w-48"
                 size="sm"
                 items={jugadoresAptos}
                 selectedKeys={field.value ? new Set([field.value]) : new Set()}
@@ -141,34 +143,60 @@ export default function AñadirParejaForm({ id }: Props) {
         />
 
         <Button
-          className="mt-10 w-full bg-bordo hover:bg-rojo-oscuro text-white"
+          className="mt-4 sm:mt-10 w-full sm:w-auto bg-bordo hover:bg-rojo-oscuro text-white"
           type="submit"
         >
           Agregar Jugador
         </Button>
       </Form>
 
-      <div>
+      <div className="w-full">
         <h3 className="text-2xl font-bold">Parejas</h3>
-        <div>
+
+        <div className="overflow-x-auto">
           {isLoading ? (
             <p>Cargando parejas...</p>
           ) : parejas.length > 0 ? (
-            <>
-              <ul>
-                {parejas.map((p, index) => (
-                  <li key={index} className="flex gap-4 items-center">
-                    {`${index + 1}. ${
-                      jugadoresAptos.find((j) => j.value === p.jugador1)?.label
-                    } - ${
-                      jugadoresAptos.find((j) => j.value === p.jugador2)?.label
-                    }`}
-                    <button onClick={() => deletePareja(index)}>
-                      <Trash2 className="size-4" color="#840414" />
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-6 flex flex-col">
+              <table className="min-w-full text-left border-separate border-spacing-y-2">
+                <thead>
+                  <tr className="bg-gray-100 rounded-lg text-center">
+                    <th className="py-2 px-4 rounded-l-lg">Jugador 1</th>
+                    <th className="py-2 px-4">Jugador 2</th>
+                    <th className="py-2 px-4 rounded-r-lg text-center">
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {parejas.map((p, index) => (
+                    <tr
+                      key={index}
+                      className="bg-white shadow-sm hover:bg-gray-50 transition"
+                    >
+                      <td className="py-2 px-4">
+                        {
+                          jugadoresAptos.find((j) => j.value === p.jugador1)
+                            ?.label
+                        }
+                      </td>
+                      <td className="py-2 px-4">
+                        {
+                          jugadoresAptos.find((j) => j.value === p.jugador2)
+                            ?.label
+                        }
+                      </td>
+                      <td className="py-2 px-4 text-center">
+                        <Tooltip color="danger" content="Eliminar pareja">
+                          <button onClick={() => deletePareja(index)}>
+                            <Trash2 className="size-4" color="#840414" />
+                          </button>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
 
               <Button
                 type="button"
@@ -178,7 +206,7 @@ export default function AñadirParejaForm({ id }: Props) {
               >
                 Añadir Parejas
               </Button>
-            </>
+            </div>
           ) : (
             <p>No hay parejas registradas</p>
           )}
