@@ -64,6 +64,7 @@ export function useTournament(id?: string | undefined) {
     isLoading: getTournament.isLoading,
   };
 }
+
 export function useCreateTournament() {
   const createTournament = useMutation(
     {

@@ -34,6 +34,7 @@ const columns = [
   { name: "GÉNERO", uid: "genero" },
   { name: "CATEGORIA", uid: "categoria" },
   { name: "ACCIONES", uid: "acciones" },
+  { name: "PANEL", uid: "panel" },
 ];
 
 export default function TablaJugadores({
@@ -138,6 +139,17 @@ export default function TablaJugadores({
               </Tooltip>
             </div>
           );
+        case "panel":
+          return (
+            <div className="flex flex-col">
+              <a
+                href={`/admin/torneos/${tournament.id}/panel`}
+                className="text-bold text-sm capitalize"
+              >
+                Ir al panel
+              </a>
+            </div>
+          );
         default:
           return null;
       }
@@ -170,7 +182,7 @@ export default function TablaJugadores({
 
         {isLoading ? (
           <TableBody>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: 6 }).map((_, i) => (
               <TableRow key={`skeleton-${i}`}>
                 <TableCell>
                   <div className="flex items-center gap-3">
@@ -199,6 +211,10 @@ export default function TablaJugadores({
                     <Skeleton className="h-6 w-6 rounded-md" />
                     <Skeleton className="h-6 w-6 rounded-md" />
                   </div>
+                </TableCell>
+
+                <TableCell>
+                  <Skeleton className="h-4 w-24 rounded-lg" />
                 </TableCell>
               </TableRow>
             ))}
