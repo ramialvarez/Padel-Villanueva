@@ -7,9 +7,11 @@ import {
   handleUpdatePlayer,
   deletePlayer,
   getQualifiedPlayers,
+  getPlayersByIds,
 } from "@/lib/db/players";
 import { addToast } from "@heroui/react";
 import type { JugadorFormData } from "@/lib/schemas/jugadorSchema";
+import { useMemo } from "react";
 
 type TournamentPlayersOptions = {
   genero?: string;
@@ -76,6 +78,33 @@ export function usePlayer(id?: string | undefined) {
   return {
     player: getPlayer?.data,
     isLoading: getPlayer.isLoading,
+  };
+}
+
+export function usePlayersByIds(playerIds: string[]) {
+  const query = useQuery(
+    {
+      queryKey: ["jugadores", "multiple", playerIds.sort()],
+      queryFn: () => getPlayersByIds(playerIds),
+      staleTime: 1000 * 60 * 5,
+      enabled: playerIds.length > 0,
+    },
+    queryClient
+  );
+
+  const playersMap = useMemo(() => {
+    const map = new Map();
+    query.data?.forEach((player) => {
+      map.set(player.id, player);
+    });
+    return map;
+  }, [query.data]);
+
+  return {
+    players: query.data ?? [],
+    playersMap,
+    isLoading: query.isLoading,
+    error: query.error,
   };
 }
 

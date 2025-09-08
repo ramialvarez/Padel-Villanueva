@@ -1,56 +1,73 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/store/queryClient";
-import {
-  getParejasTournament,
-  getParejaById,
-  handleCreatePareja,
-} from "@/lib/db/parejas";
+import { handleCreateGroup } from "@/lib/db/groups";
 import { addToast } from "@heroui/react";
-import type { ParejaFormData } from "@/lib/schemas/parejaSchema";
+import type { GrupoFormData } from "@/lib/schemas/grupoSchema";
 
-export function useParejasTournament(id?: string | undefined) {
+/*export function useGrupos() {
   const query = useQuery(
     {
-      queryKey: ["parejas", id],
-      queryFn: () => getParejasTournament(id),
+      queryKey: ["grupos"],
+      queryFn: () => getAllGroups(),
       staleTime: 1000 * 60 * 5,
     },
     queryClient
   );
 
   return {
-    parejas: query.data ?? [],
+    players: query.data?.data ?? [],
+    count: query.data?.count ?? 0,
     isLoading: query.isLoading,
     error: query.error,
   };
-}
+}*/
 
-export function usePareja(id?: string | undefined) {
-  const getPareja = useQuery(
+/*export function useTournamentGroups({
+  genero = "",
+  categoria = "",
+}: TournamentPlayersOptions) {
+  const query = useQuery(
     {
-      queryKey: ["pareja", id],
-      queryFn: () => getParejaById(id),
+      queryKey: ["jugadoresTorneo", genero, categoria],
+      queryFn: () => getQualifiedPlayers(genero, categoria),
       staleTime: 1000 * 60 * 5,
     },
     queryClient
   );
 
   return {
-    pareja: getPareja?.data,
-    isLoading: getPareja.isLoading,
+    jugadoresAptos: query.data ?? [],
+    isLoading: query.isLoading,
+    error: query.error,
   };
-}
+}*/
 
-export function useCreatePareja(idTorneo?: string | undefined) {
-  const createPareja = useMutation<
+/*export function usePlayer(id?: string | undefined) {
+  const getPlayer = useQuery(
+    {
+      queryKey: ["grupo", id],
+      queryFn: () => getPlayerById(id),
+      staleTime: 1000 * 60 * 5,
+    },
+    queryClient
+  );
+
+  return {
+    player: getPlayer?.data,
+    isLoading: getPlayer.isLoading,
+  };
+}*/
+
+export function useCreateGroup(idTorneo?: string | undefined) {
+  const createGrupo = useMutation<
     void,
     Error,
-    { data: ParejaFormData[]; idTorneo: string }
+    { data: GrupoFormData; idTorneo: string }
   >(
     {
-      mutationFn: ({ data, idTorneo }) => handleCreatePareja(data, idTorneo),
+      mutationFn: ({ data, idTorneo }) => handleCreateGroup(data, idTorneo),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["torneos"] });
+        queryClient.invalidateQueries({ queryKey: ["grupos"] });
         window.location.replace(`/admin/torneos/${idTorneo}/añadirGrupos`);
       },
     },
@@ -58,8 +75,8 @@ export function useCreatePareja(idTorneo?: string | undefined) {
   );
 
   return {
-    createPareja: createPareja.mutate,
-    isCreating: createPareja.isPending,
+    createGrupo: createGrupo.mutate,
+    isCreating: createGrupo.isPending,
   };
 }
 
@@ -83,9 +100,9 @@ export function useCreatePareja(idTorneo?: string | undefined) {
     updatePlayer: updatePlayer.mutate,
     isUpdating: updatePlayer.isPending,
   };
-}
+} */
 
-export function useDeletePlayer() {
+/*export function useDeletePlayer() {
   const eliminarJugador = useMutation<
     void,
     Error,
@@ -115,4 +132,4 @@ export function useDeletePlayer() {
     deletePlayer: eliminarJugador.mutate,
     isDeleting: eliminarJugador.isPending,
   };
-} */
+}*/

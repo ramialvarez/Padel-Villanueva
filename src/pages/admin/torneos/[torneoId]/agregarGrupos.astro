@@ -1,0 +1,10 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import AñadirGrupoForm from "@/components/torneos/AñadirGrupoForm";
+
+const { torneoId } = Astro.params;
+---
+
+<Layout title="Agregar parejas">
+  <AñadirGrupoForm torneoId={torneoId} client:load />
+</Layout>

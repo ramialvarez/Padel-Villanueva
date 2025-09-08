@@ -56,6 +56,21 @@ export async function getPlayerById(
   return data;
 }
 
+export async function getPlayersByIds(playerIds: string[]): Promise<Player[]> {
+  if (!playerIds.length) return [];
+
+  const { error, data } = await supabase
+    .from("jugadores")
+    .select("*")
+    .in("id", playerIds);
+
+  if (error) {
+    throw new Error("Error al obtener los jugadores: " + error.message);
+  }
+
+  return data || [];
+}
+
 export async function getQualifiedPlayers(genero: string, categoria: string) {
   let query = supabase.from("jugadores").select("id, nombre");
 
@@ -184,6 +199,7 @@ export async function deletePlayer(id: string, nombre: string) {
     throw error;
   }
 }
+
 
 export async function eliminarImagen(folderName: string) {
   const folderPath = folderName

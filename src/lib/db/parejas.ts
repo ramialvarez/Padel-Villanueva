@@ -19,7 +19,6 @@ export async function getParejasTournament(
     throw new Error("Error al obtener las parejas del torneo" + error);
   }
 
-  console.log("PAREJAS", data);
   return data;
 }
 
@@ -73,6 +72,20 @@ export async function handleCreatePareja(
       color: "danger",
     });
     throw error;
+  }
+}
+
+export async function asignarParejaAGrupo(
+  parejaId: string,
+  grupoId: string
+): Promise<void> {
+  const { error } = await supabase
+    .from("parejas")
+    .update({ grupo_id: grupoId }) // Asumiendo que tu tabla parejas tiene un campo grupo_id
+    .eq("id", parejaId);
+
+  if (error) {
+    throw new Error("Error al asignar parejas al grupo: " + error.message);
   }
 }
 

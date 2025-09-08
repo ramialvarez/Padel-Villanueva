@@ -40,7 +40,6 @@ export default function ListadoJugadores() {
     id: string,
     nombre: string
   ) => {
-    console.log("APRETE EL SPAN");
     event.preventDefault();
     deletePlayer({ id, nombre });
   };

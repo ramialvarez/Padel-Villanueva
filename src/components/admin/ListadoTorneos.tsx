@@ -28,9 +28,7 @@ export default function ListadoTorneos() {
   } = useTournaments(page, PAGE_SIZE, filters);
 
   const { deleteTournament, isDeleting } = useDeleteTournament();
-
-  console.log("FILTERS", filters);
-
+  
   const handleFilterChange = (key: string, value: string) => {
     setFilters((prev) => ({
       ...prev,
