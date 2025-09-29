@@ -28,7 +28,7 @@ export default function SelectFilter({
   const Icon = iconMap[iconName];
   return (
     <Select
-      className="max-w-xs lg:w-[250px] sm:w-xs"
+      className="max-w-xs lg:w-[250px] sm:w-xs bg-white rounded-xl font-semibold"
       variant="bordered"
       labelPlacement="outside"
       items={items}

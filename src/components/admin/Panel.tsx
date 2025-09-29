@@ -59,7 +59,7 @@ export default function Panel({ torneoId }: Props) {
       title: "JUGADORES",
       items: [
         {
-          href: `/admin/torneos/${torneoId}/editarParejas`,
+          href: `/admin/torneos/${torneoId}/agregarParejas`,
           label: "Gestionar parejas",
           colorBg: "bg-gradient-to-br from-emerald-500 to-emerald-600",
           colorText: "text-white",
@@ -152,7 +152,7 @@ export default function Panel({ torneoId }: Props) {
 
   return (
     <>
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-6xl mx-auto my-12 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-6xl mx-auto my-2 overflow-hidden">
         <Table aria-label="Panel de opciones del torneo">
           <TableHeader>
             <TableColumn className="flex flex-col h-full text-center py-2 bg-rojo-medium/75 text-gray-line text-md">

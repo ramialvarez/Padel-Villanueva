@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import LayoutComun from "@/layouts/LayoutComun.astro";
 import EditarJugadorForm from "@/components/jugadores/EditarJugadorForm";
 
 interface Props {
@@ -8,6 +8,6 @@ interface Props {
 const { jugadorId } = Astro.params;
 ---
 
-<Layout title="Editar jugador">
+<LayoutComun title="Editar jugador">
   <EditarJugadorForm id={jugadorId} client:load />
-</Layout>
+</LayoutComun>

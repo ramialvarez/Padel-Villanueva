@@ -40,25 +40,35 @@
 }
 
 :root {
-  --navbar-height: 80px; /* Ajusta este valor según la altura real de tu navbar */
+  --navbar-height: 80px;
 }
 
 html {
   @apply m-0 p-0;
   font-family: "Poppins", sans-serif;
-  background-color: var(--color-gray-input);
+  background-color: transparent;
 }
 
 body {
   @apply h-full min-h-screen;
+
+  position: relative;
+  z-index: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/logos_bordo.svg"), url("/logos_bordo.svg"),
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+  background-repeat: repeat, repeat;
+  background-size: 150px 100px, 150px 100px;
+  background-position: 0 0, 75px 50px;
+  opacity: 0.3;
+  z-index: -2;
 }
 
 main {
   @apply h-full;
-}
-
-@utility scrollbar-hidden {
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }

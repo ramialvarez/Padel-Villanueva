@@ -53,7 +53,7 @@ export default function LoginForm() {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white relative top-30 flex flex-col items-start gap-6"
+      className="max-w-xl sm:mx-auto p-6 mx-2 border border-gray-line rounded-xl shadow bg-white relative top-70 flex flex-col items-start gap-6"
     >
       <h2 className="text-3xl text-title-black font-bold">Iniciar Sesion</h2>
       <Controller

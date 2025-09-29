@@ -134,9 +134,7 @@ export default function AñadirGrupoForm({ torneoId }: Props) {
       className="flex flex-col items-center justify-center gap-6 max-w-4xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white backdrop-blur-md relative top-0"
     >
       <div className="flex flex-col justify-between items-center gap-4">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Crear Grupos del Torneo
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-800">Añadir Grupos</h2>
         <Button
           type="button"
           onClick={crearNuevoGrupo}

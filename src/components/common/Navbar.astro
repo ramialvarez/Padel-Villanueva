@@ -1,0 +1,172 @@
+---
+import { Menu, X } from "@lucide/astro";
+import Button from "@/components/ui/Button.astro";
+import NavLink from "@/components/ui/NavLink.astro";
+
+import { getSessionFromCookies } from "@/lib/getSession";
+
+// Props del componente
+interface Props {
+  fixed?: boolean;
+}
+
+const { fixed = false } = Astro.props;
+const session = await getSessionFromCookies(Astro);
+
+// Clases condicionales
+const navbarClasses = fixed
+  ? "fixed top-0 left-0 w-full z-50 px-8 py-4 text-white font-medium text-md bg-black/30 border-b b-1 border-gray-input"
+  : "w-full z-50 px-8 py-4 text-white font-medium text-md bg-black/30 border-b b-1 border-gray-input";
+
+const pointerEvents = fixed ? "pointer-events: auto;" : "";
+---
+
+<nav class={navbarClasses} style={pointerEvents}>
+  <div class="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center flex-1 gap-8">
+      <a href="/" class="relative z-10">
+        <img
+          src="/logo_navbar_blanco.svg"
+          alt="Logo padel villanueva"
+          class="h-20 w-auto"
+        />
+      </a>
+      <ul class="hidden sm:flex sm:items-center sm:ml-6 gap-12 relative z-10">
+        <NavLink url="/ranking" text="Ranking" />
+        <NavLink url="/torneoActual" text="Torneo Actual" />
+        <NavLink url="/torneos" text="Torneos" />
+
+        {
+          Boolean(session) && (
+            <NavLink
+              url="/admin/jugadores/listado"
+              text="Panel de Administración"
+            />
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="hidden sm:flex sm:items-center relative z-10">
+      {
+        session ? (
+          <form action="/api/auth/signout" method="POST">
+            <button class="w-auto h-12 text-white hover:bg-rojo-oscuro hover:transition p-6 border b-1 border-white flex items-center justify-center transform hover:scale-105 transition duration-300">
+              Cerrar Sesión
+            </button>
+          </form>
+        ) : (
+          <a href="/signin">
+            <button class="w-auto h-12 text-white hover:bg-rojo-oscuro hover:transition p-6 border b-1 border-white flex items-center justify-center transform hover:scale-105 transition duration-300">
+              Iniciar Sesión
+            </button>
+          </a>
+        )
+      }
+    </div>
+    <div class="flex items-center sm:hidden relative z-10">
+      <button
+        type="button"
+        id="mobile-menu-button"
+        class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/50 transition-colors duration-200"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Abrir menú principal</span>
+
+        <Menu class="size-6" id="menu-closed-icon" />
+        <X class="size-6 hidden" id="menu-open-icon" />
+      </button>
+    </div>
+  </div>
+
+  <div class="hidden sm:hidden bg-black/60 shadow-lg w-full" id="mobile-menu">
+    <div class="px-6 pt-6 pb-4">
+      <ul class="flex flex-col space-y-4">
+        <li>
+          <a
+            href="/ranking"
+            class="block px-0 py-2 text-white hover:text-rojo font-medium transition-colors duration-200"
+          >
+            Ranking
+          </a>
+        </li>
+        <li>
+          <a
+            href="/torneoActual"
+            class="block px-0 py-2 text-white hover:text-rojo font-medium transition-colors duration-200"
+          >
+            Torneo Actual
+          </a>
+        </li>
+        <li>
+          <a
+            href="/torneos"
+            class="block px-0 py-2 text-white hover:text-rojo font-medium transition-colors duration-200"
+          >
+            Torneos
+          </a>
+        </li>
+        {
+          Boolean(session) && (
+            <li>
+              <a
+                href="/admin/jugadores/listado"
+                class="block px-0 py-2 text-white hover:text-rojo font-medium transition-colors duration-200"
+              >
+                Panel de Administración
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="pt-4 pb-6 border-t border-white/20 px-6">
+      {
+        session ? (
+          <form action="/api/auth/signout" method="POST">
+            <button
+              class="block w-full text-left px-0 py-2 font-medium text-white hover:text-rojo transition-colors duration-200"
+              type="submit"
+            >
+              Cerrar sesión
+            </button>
+          </form>
+        ) : (
+          <a
+            href="/signin"
+            class="block w-full text-left px-0 p2 font-medium text-white hover:text-rojo transition-colors duration-200"
+          >
+            Iniciar sesión
+          </a>
+        )
+      }
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuClosedIcon = document.getElementById("menu-closed-icon");
+    const menuOpenIcon = document.getElementById("menu-open-icon");
+
+    if (mobileMenuButton && mobileMenu && menuClosedIcon && menuOpenIcon) {
+      mobileMenuButton.addEventListener("click", () => {
+        const isExpanded =
+          mobileMenuButton.getAttribute("aria-expanded") === "true";
+
+        mobileMenu.classList.toggle("hidden");
+        menuClosedIcon.classList.toggle("hidden");
+        menuOpenIcon.classList.toggle("hidden");
+
+        mobileMenuButton.setAttribute(
+          "aria-expanded",
+          (!isExpanded).toString()
+        );
+      });
+    }
+  });
+</script>

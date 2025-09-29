@@ -1,11 +1,10 @@
 ---
-import { useTournament } from "@/hooks/useTournaments";
-import Layout from "@/layouts/Layout.astro";
 import PanelOpciones from "@/components/admin/Panel";
+import LayoutComun from "@/layouts/LayoutComun.astro";
 
 const { torneoId } = Astro.params;
 ---
 
-<Layout title=`Panel de opciones del torneo`>
+<LayoutComun title=`Panel de opciones del torneo`>
   <PanelOpciones torneoId={torneoId} client:load />
-</Layout>
+</LayoutComun>

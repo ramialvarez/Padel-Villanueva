@@ -1,13 +1,16 @@
 ---
-import RankingComponente from "@/components/ranking/Ranking.tsx"
-import Layout from "@/layouts/Layout.astro";
+import RankingComponente from "@/components/ranking/Ranking.tsx";
+
+import LayoutComun from "@/layouts/LayoutComun.astro";
 ---
 
-<Layout title="Ranking">
+<LayoutComun title="Ranking - Padel Villanueva">
   <section
     class="flex flex-col items-center justify-center max-w-5xl w-full m-auto"
   >
-    <h1 class="text-title-black text-3xl font-semibold pt-6 pb-2">Ranking</h1>
+    <h1 class="text-4xl font-bold text-title-black mb-2 pt-6">Ranking</h1>
+    <div class="h-1 w-20 bg-rojo rounded-full"></div>
+
     <RankingComponente client:only />
   </section>
-</Layout>
+</LayoutComun>

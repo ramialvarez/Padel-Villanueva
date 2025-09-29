@@ -1,8 +1,19 @@
 ---
-import Home from "@/components/home/Home.astro";
-import Layout from "../layouts/Layout.astro";
+import PadelBackground from "@/components/home/PadelBackground.jsx";
+import HeroContent from "@/components/home/HeroContent.astro";
+import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Padel Villanueva">
-  <Home />
+  <div class="relative w-full min-h-screen overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <PadelBackground client:load />
+    </div>
+
+    <section
+      class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center p-4 pt-24 md:pt-4"
+    >
+      <HeroContent />
+    </section>
+  </div>
 </Layout>

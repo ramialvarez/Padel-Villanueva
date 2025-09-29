@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import EditarTorneoForm from "@/components/torneos/EditarTorneoForm";
+import LayoutComun from "@/layouts/LayoutComun.astro";
 
 interface Props {
   torneoId: string;
@@ -8,6 +9,6 @@ interface Props {
 const { torneoId } = Astro.params;
 ---
 
-<Layout title="Editar torneo">
+<LayoutComun title="Editar torneo">
   <EditarTorneoForm id={torneoId} client:load />
-</Layout>
+</LayoutComun>

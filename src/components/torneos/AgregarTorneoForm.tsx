@@ -32,7 +32,7 @@ export default function AgregarTorneoForm() {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-start justify-center gap-6 max-w-xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white backdrop-blur-md relative top-0"
+      className="flex flex-col items-start justify-center gap-6 max-w-xl sm:mx-auto mx-2 my-2 px-6 py-4 border border-gray-line rounded-xl shadow bg-white backdrop-blur-md relative top-1"
     >
       <h2 className="text-3xl text-title-black font-bold">Crear Torneo</h2>
 

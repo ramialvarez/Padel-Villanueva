@@ -1,6 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import AñadirParejaForm from "@/components/torneos/AñadirParejaForm";
+import LayoutComun from "@/layouts/LayoutComun.astro";
 
 interface Props {
   torneoId: string;
@@ -8,6 +8,6 @@ interface Props {
 const { torneoId } = Astro.params;
 ---
 
-<Layout title="Agregar parejas">
+<LayoutComun title="Agregar parejas">
   <AñadirParejaForm id={torneoId} client:load />
-</Layout>
+</LayoutComun>

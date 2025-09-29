@@ -58,12 +58,15 @@ export default function EditarJugadorForm({ id }: Props) {
     updatePlayer({ formData, id });
   };
 
-  if (isLoading || !player) return <p>Cargando jugador...</p>;
+  if (isLoading || !player)
+    return (
+      <p className="flex items-center justify-center">Cargando jugador...</p>
+    );
 
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-xl sm:mx-auto m-6 p-6 border border-gray-line rounded-xl shadow bg-white relative top-10 flex flex-col items-start gap-6"
+      className="max-w-xl sm:mx-auto p-6 mx-2 border border-gray-line rounded-xl shadow bg-white relative top-10 flex flex-col items-start gap-6"
     >
       <h2 className="text-3xl text-title-black font-bold">Editar Jugador</h2>
       <Controller

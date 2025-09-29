@@ -74,7 +74,9 @@ export default function AñadirParejaForm({ id }: Props) {
 
   const onSubmitFinal = () => {
     const nuevas = parejas.filter((p) => p.esNueva);
-    if (nuevas.length === 0) return;
+    if (nuevas.length === 0) {
+      alert("SON LAS MISMAS PAREJAS");
+    }
     createPareja({ data: nuevas, idTorneo: id! });
   };
 
