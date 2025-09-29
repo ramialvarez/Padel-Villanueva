@@ -1,13 +1,16 @@
 ---
-// src/components/CarouselOptimized.astro
 import { Image } from "astro:assets";
 import imagen1 from "@/assets/imagen_1.webp";
 import imagen2 from "@/assets/imagen_2.webp";
 import imagen3 from "@/assets/imagen_3.webp";
 ---
 
-<div id="carousel-container" class="w-full h-screen relative overflow-hidden">
-  <div class="carousel-slide active">
+<div
+  id="carousel-container"
+  class="w-full h-screen relative overflow-hidden bg-gray-900"
+>
+  <!-- Slide 1 -->
+  <div class="carousel-slide active" data-slide="0">
     <Image
       src={imagen1}
       alt="Cancha de Padel 1"
@@ -19,7 +22,9 @@ import imagen3 from "@/assets/imagen_3.webp";
     />
     <div class="absolute inset-0 bg-black/30"></div>
   </div>
-  <div class="carousel-slide">
+
+  <!-- Slide 2 -->
+  <div class="carousel-slide" data-slide="1">
     <Image
       src={imagen2}
       alt="Cancha de Padel 2"
@@ -31,7 +36,9 @@ import imagen3 from "@/assets/imagen_3.webp";
     />
     <div class="absolute inset-0 bg-black/30"></div>
   </div>
-  <div class="carousel-slide">
+
+  <!-- Slide 3 -->
+  <div class="carousel-slide" data-slide="2">
     <Image
       src={imagen3}
       alt="Cancha de Padel 3"
@@ -46,6 +53,11 @@ import imagen3 from "@/assets/imagen_3.webp";
 </div>
 
 <style>
+  #carousel-container {
+    /* Color de fondo mientras cargan las imágenes (ajusta al color dominante de tus fotos) */
+    background-color: #1a1a1a;
+  }
+
   .carousel-slide {
     position: absolute;
     top: 0;
@@ -53,22 +65,114 @@ import imagen3 from "@/assets/imagen_3.webp";
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1.2s ease-in-out;
+    z-index: 0;
+    pointer-events: none;
   }
+
   .carousel-slide.active {
     opacity: 1;
+    z-index: 1;
+    pointer-events: auto;
+  }
+
+  .carousel-slide.transitioning {
+    z-index: 2;
+  }
+
+  /* Asegurar que las imágenes cubran completamente */
+  .carousel-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Overlay siempre por encima de la imagen */
+  .carousel-slide > div {
+    z-index: 10;
   }
 </style>
 
 <script>
   let currentSlide = 0;
   const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+  let isTransitioning = false;
 
   function nextSlide() {
-    slides[currentSlide].classList.remove("active");
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add("active");
+    if (isTransitioning || totalSlides <= 1) return;
+
+    isTransitioning = true;
+
+    const currentSlideEl = slides[currentSlide];
+    const nextIndex = (currentSlide + 1) % totalSlides;
+    const nextSlideEl = slides[nextIndex];
+
+    // Añadir clase transitioning al siguiente slide
+    nextSlideEl.classList.add("transitioning");
+
+    // Activar el siguiente slide
+    nextSlideEl.classList.add("active");
+
+    // Después de la transición, limpiar
+    setTimeout(() => {
+      currentSlideEl.classList.remove("active");
+      nextSlideEl.classList.remove("transitioning");
+      currentSlide = nextIndex;
+      isTransitioning = false;
+    }, 1200); // Mismo tiempo que la transición CSS
   }
 
-  setInterval(nextSlide, 3000);
+  // Precargar la siguiente imagen
+  function preloadNextImage() {
+    const nextIndex = (currentSlide + 1) % totalSlides;
+    const nextSlide = slides[nextIndex];
+    const img = nextSlide.querySelector("img");
+
+    if (img && !img.complete) {
+      // Forzar carga de la imagen
+      const src = img.currentSrc || img.src;
+      if (src) {
+        const preloadImg = new Image();
+        preloadImg.src = src;
+      }
+    }
+  }
+
+  // Iniciar carousel solo cuando la primera imagen esté cargada
+  function initCarousel() {
+    const firstImg = slides[0]?.querySelector("img");
+
+    if (firstImg) {
+      if (firstImg.complete) {
+        startCarousel();
+      } else {
+        firstImg.addEventListener("load", startCarousel, { once: true });
+        // Timeout de seguridad por si falla la carga
+        setTimeout(startCarousel, 3000);
+      }
+    } else {
+      startCarousel();
+    }
+  }
+
+  function startCarousel() {
+    // Precargar siguiente imagen
+    preloadNextImage();
+
+    // Cambiar cada 3 segundos
+    setInterval(() => {
+      nextSlide();
+      // Precargar la próxima imagen después del cambio
+      setTimeout(preloadNextImage, 100);
+    }, 3000);
+  }
+
+  // Iniciar cuando el DOM esté listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCarousel);
+  } else {
+    initCarousel();
+  }
 </script>

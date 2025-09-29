@@ -74,9 +74,6 @@ importers:
       react-hook-form:
         specifier: ^7.60.0
         version: 7.60.0(react@19.1.0)
-      swiper:
-        specifier: ^12.0.2
-        version: 12.0.2
       tailwindcss:
         specifier: ^4.1.11
         version: 4.1.11
@@ -3109,10 +3106,6 @@ packages:
     resolution: {integrity: sha512-5OIhaXuJHq/rdu6yIozmD4kZa1//IzfQTmrSE74DgJOP4Nz6Y5ynMdaCCg8kTWv34MyOMn0GXrbjhObLdsyElA==}
     engines: {npm: '>=8'}
     hasBin: true
-
-  swiper@12.0.2:
-    resolution: {integrity: sha512-y8F6fDGXmTVVgwqJj6I00l4FdGuhpFJn0U/9Ucn1MwWOw3NdLV8aH88pZOjyhBgU/6PyBlUx+JuAQ5KMWz906Q==}
-    engines: {node: '>= 4.7.0'}
 
   tailwind-merge@3.0.2:
     resolution: {integrity: sha512-l7z+OYZ7mu3DTqrL88RiKrKIqO3NcpEO8V/Od04bNpvk0kiIFndGEoqfuzvj4yuhRkHKjRkII2z+KS2HfPcSxw==}
@@ -7611,8 +7604,6 @@ snapshots:
       tar: 7.4.3
     transitivePeerDependencies:
       - supports-color
-
-  swiper@12.0.2: {}
 
   tailwind-merge@3.0.2: {}
 
