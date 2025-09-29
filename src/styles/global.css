@@ -74,6 +74,5 @@ main {
 }
 
 .swiper-wrapper {
-  /* Forzar la aceleración por hardware (anti-salto) */
   will-change: transform;
 }
