@@ -1,0 +1,74 @@
+---
+// src/components/CarouselOptimized.astro
+import { Image } from "astro:assets";
+import imagen1 from "@/assets/imagen_1.webp";
+import imagen2 from "@/assets/imagen_2.webp";
+import imagen3 from "@/assets/imagen_3.webp";
+---
+
+<div id="carousel-container" class="w-full h-screen relative overflow-hidden">
+  <div class="carousel-slide active">
+    <Image
+      src={imagen1}
+      alt="Cancha de Padel 1"
+      class="w-full h-full object-cover"
+      loading="eager"
+      quality={75}
+      widths={[640, 1024, 1920]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/30"></div>
+  </div>
+  <div class="carousel-slide">
+    <Image
+      src={imagen2}
+      alt="Cancha de Padel 2"
+      class="w-full h-full object-cover"
+      loading="lazy"
+      quality={75}
+      widths={[640, 1024, 1920]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/30"></div>
+  </div>
+  <div class="carousel-slide">
+    <Image
+      src={imagen3}
+      alt="Cancha de Padel 3"
+      class="w-full h-full object-cover"
+      loading="lazy"
+      quality={75}
+      widths={[640, 1024, 1920]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/30"></div>
+  </div>
+</div>
+
+<style>
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .carousel-slide.active {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".carousel-slide");
+
+  function nextSlide() {
+    slides[currentSlide].classList.remove("active");
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add("active");
+  }
+
+  setInterval(nextSlide, 3000);
+</script>

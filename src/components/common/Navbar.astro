@@ -1,11 +1,9 @@
 ---
 import { Menu, X } from "@lucide/astro";
-import Button from "@/components/ui/Button.astro";
 import NavLink from "@/components/ui/NavLink.astro";
 
 import { getSessionFromCookies } from "@/lib/getSession";
 
-// Props del componente
 interface Props {
   fixed?: boolean;
 }
@@ -13,7 +11,6 @@ interface Props {
 const { fixed = false } = Astro.props;
 const session = await getSessionFromCookies(Astro);
 
-// Clases condicionales
 const navbarClasses = fixed
   ? "fixed top-0 left-0 w-full z-50 px-8 py-4 text-white font-medium text-md bg-black/30 border-b b-1 border-gray-input"
   : "w-full z-50 px-8 py-4 text-white font-medium text-md bg-black/30 border-b b-1 border-gray-input";
