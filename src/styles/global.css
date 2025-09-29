@@ -72,3 +72,8 @@ body::before {
 main {
   @apply h-full;
 }
+
+.swiper-wrapper {
+  /* Forzar la aceleración por hardware (anti-salto) */
+  will-change: transform;
+}
