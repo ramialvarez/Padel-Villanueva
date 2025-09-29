@@ -17,5 +17,15 @@ export default defineConfig({
     webAnalytics: {
       enabled: true,
     },
+    imageService: true,
+    imagesConfig: {
+      sizes: [640, 1024, 1920],
+      formats: ["image/webp"],
+    },
   }),
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+  },
 });
