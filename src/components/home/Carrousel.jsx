@@ -8,7 +8,7 @@ import "swiper/css/effect-fade";
 
 import { useEffect, useState } from "react";
 
-const slides = ["/imagen_1.jpg", "/imagen_2.jpg", "/imagen_3.jpg"];
+const slides = ["/imagen_1.webp", "/imagen_2.webp", "/imagen_3.webp"];
 
 export default function Carousel() {
   const [isClient, setIsClient] = useState(false);
